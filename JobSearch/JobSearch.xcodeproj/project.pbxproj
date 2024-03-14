@@ -8,18 +8,50 @@
 
 /* Begin PBXBuildFile section */
 		CEFF0C522BA0B53400801A0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C512BA0B53400801A0A /* AppDelegate.swift */; };
-		CEFF0C562BA0B53400801A0A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C552BA0B53400801A0A /* ViewController.swift */; };
+		CEFF0C562BA0B53400801A0A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C552BA0B53400801A0A /* LoginViewController.swift */; };
 		CEFF0C5B2BA0B53600801A0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEFF0C5A2BA0B53600801A0A /* Assets.xcassets */; };
 		CEFF0C5E2BA0B53600801A0A /* Base in Resources */ = {isa = PBXBuildFile; fileRef = CEFF0C5D2BA0B53600801A0A /* Base */; };
+		CEFF0C692BA0B61500801A0A /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C682BA0B61500801A0A /* Coordinator.swift */; };
+		CEFF0C6B2BA0B67A00801A0A /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C6A2BA0B67A00801A0A /* AppCoordinator.swift */; };
+		CEFF0C712BA1708900801A0A /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C702BA1708900801A0A /* LoginViewModel.swift */; };
+		CEFF0C732BA170AA00801A0A /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C722BA170AA00801A0A /* LoginModel.swift */; };
+		CEFF0C752BA170D500801A0A /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C742BA170D500801A0A /* Dynamic.swift */; };
+		CEFF0C782BA185A600801A0A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C772BA185A600801A0A /* TabBarController.swift */; };
+		CEFF0C7A2BA18D1E00801A0A /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C792BA18D1E00801A0A /* SearchViewController.swift */; };
+		CEFF0C7C2BA18D4E00801A0A /* SelectedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C7B2BA18D4E00801A0A /* SelectedViewController.swift */; };
+		CEFF0C7E2BA18D7600801A0A /* ResponsesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C7D2BA18D7600801A0A /* ResponsesViewController.swift */; };
+		CEFF0C802BA18D8E00801A0A /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C7F2BA18D8E00801A0A /* MessagesViewController.swift */; };
+		CEFF0C822BA18DAC00801A0A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C812BA18DAC00801A0A /* ProfileViewController.swift */; };
+		CEFF0C842BA1DF1100801A0A /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C832BA1DF1100801A0A /* ContainerViewController.swift */; };
+		CEFF0C872BA29AC500801A0A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CEFF0C862BA29AC500801A0A /* SnapKit */; };
+		CEFF0C892BA29AC500801A0A /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = CEFF0C882BA29AC500801A0A /* SnapKit-Dynamic */; };
+		CEFF0C8C2BA2BAC500801A0A /* UIColor + Extens.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C8B2BA2BAC500801A0A /* UIColor + Extens.swift */; };
+		CEFF0C8F2BA2C1E800801A0A /* UIStackView + extens.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C8E2BA2C1E800801A0A /* UIStackView + extens.swift */; };
+		CEFF0C912BA2C35D00801A0A /* UIView + Extens.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C902BA2C35D00801A0A /* UIView + Extens.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CEFF0C4E2BA0B53400801A0A /* JobSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JobSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEFF0C512BA0B53400801A0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CEFF0C552BA0B53400801A0A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CEFF0C552BA0B53400801A0A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		CEFF0C5A2BA0B53600801A0A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEFF0C5D2BA0B53600801A0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CEFF0C5F2BA0B53600801A0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CEFF0C682BA0B61500801A0A /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		CEFF0C6A2BA0B67A00801A0A /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		CEFF0C702BA1708900801A0A /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		CEFF0C722BA170AA00801A0A /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
+		CEFF0C742BA170D500801A0A /* Dynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
+		CEFF0C772BA185A600801A0A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		CEFF0C792BA18D1E00801A0A /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		CEFF0C7B2BA18D4E00801A0A /* SelectedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedViewController.swift; sourceTree = "<group>"; };
+		CEFF0C7D2BA18D7600801A0A /* ResponsesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponsesViewController.swift; sourceTree = "<group>"; };
+		CEFF0C7F2BA18D8E00801A0A /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
+		CEFF0C812BA18DAC00801A0A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		CEFF0C832BA1DF1100801A0A /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
+		CEFF0C8B2BA2BAC500801A0A /* UIColor + Extens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extens.swift"; sourceTree = "<group>"; };
+		CEFF0C8E2BA2C1E800801A0A /* UIStackView + extens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView + extens.swift"; sourceTree = "<group>"; };
+		CEFF0C902BA2C35D00801A0A /* UIView + Extens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extens.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +59,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEFF0C872BA29AC500801A0A /* SnapKit in Frameworks */,
+				CEFF0C892BA29AC500801A0A /* SnapKit-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,12 +87,99 @@
 			isa = PBXGroup;
 			children = (
 				CEFF0C512BA0B53400801A0A /* AppDelegate.swift */,
-				CEFF0C552BA0B53400801A0A /* ViewController.swift */,
+				CEFF0C772BA185A600801A0A /* TabBarController.swift */,
+				CEFF0C832BA1DF1100801A0A /* ContainerViewController.swift */,
+				CEFF0C7B2BA18D4E00801A0A /* SelectedViewController.swift */,
+				CEFF0C7D2BA18D7600801A0A /* ResponsesViewController.swift */,
+				CEFF0C7F2BA18D8E00801A0A /* MessagesViewController.swift */,
+				CEFF0C812BA18DAC00801A0A /* ProfileViewController.swift */,
+				CEFF0C762BA170DA00801A0A /* Bindings */,
+				CEFF0C6C2BA1577C00801A0A /* Login */,
+				CEFF0C8A2BA2AE4D00801A0A /* Search */,
+				CEFF0C662BA0B5F000801A0A /* Coordinators */,
+				CEFF0C8D2BA2BACB00801A0A /* Extension */,
 				CEFF0C5A2BA0B53600801A0A /* Assets.xcassets */,
 				CEFF0C5C2BA0B53600801A0A /* LaunchScreen.storyboard */,
 				CEFF0C5F2BA0B53600801A0A /* Info.plist */,
 			);
 			path = JobSearch;
+			sourceTree = "<group>";
+		};
+		CEFF0C662BA0B5F000801A0A /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				CEFF0C672BA0B60100801A0A /* Protocols */,
+				CEFF0C6A2BA0B67A00801A0A /* AppCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		CEFF0C672BA0B60100801A0A /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				CEFF0C682BA0B61500801A0A /* Coordinator.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		CEFF0C6C2BA1577C00801A0A /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				CEFF0C6D2BA1579500801A0A /* View */,
+				CEFF0C6E2BA1705600801A0A /* ViewModel */,
+				CEFF0C6F2BA1706000801A0A /* Model */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		CEFF0C6D2BA1579500801A0A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CEFF0C552BA0B53400801A0A /* LoginViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CEFF0C6E2BA1705600801A0A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CEFF0C702BA1708900801A0A /* LoginViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		CEFF0C6F2BA1706000801A0A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CEFF0C722BA170AA00801A0A /* LoginModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CEFF0C762BA170DA00801A0A /* Bindings */ = {
+			isa = PBXGroup;
+			children = (
+				CEFF0C742BA170D500801A0A /* Dynamic.swift */,
+			);
+			path = Bindings;
+			sourceTree = "<group>";
+		};
+		CEFF0C8A2BA2AE4D00801A0A /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				CEFF0C792BA18D1E00801A0A /* SearchViewController.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		CEFF0C8D2BA2BACB00801A0A /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				CEFF0C8B2BA2BAC500801A0A /* UIColor + Extens.swift */,
+				CEFF0C8E2BA2C1E800801A0A /* UIStackView + extens.swift */,
+				CEFF0C902BA2C35D00801A0A /* UIView + Extens.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -77,6 +198,10 @@
 			dependencies = (
 			);
 			name = JobSearch;
+			packageProductDependencies = (
+				CEFF0C862BA29AC500801A0A /* SnapKit */,
+				CEFF0C882BA29AC500801A0A /* SnapKit-Dynamic */,
+			);
 			productName = JobSearch;
 			productReference = CEFF0C4E2BA0B53400801A0A /* JobSearch.app */;
 			productType = "com.apple.product-type.application";
@@ -105,6 +230,9 @@
 				Base,
 			);
 			mainGroup = CEFF0C452BA0B53400801A0A;
+			packageReferences = (
+				CEFF0C852BA29AC500801A0A /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = CEFF0C4F2BA0B53400801A0A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -131,8 +259,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEFF0C562BA0B53400801A0A /* ViewController.swift in Sources */,
+				CEFF0C8C2BA2BAC500801A0A /* UIColor + Extens.swift in Sources */,
+				CEFF0C6B2BA0B67A00801A0A /* AppCoordinator.swift in Sources */,
+				CEFF0C912BA2C35D00801A0A /* UIView + Extens.swift in Sources */,
+				CEFF0C732BA170AA00801A0A /* LoginModel.swift in Sources */,
+				CEFF0C842BA1DF1100801A0A /* ContainerViewController.swift in Sources */,
+				CEFF0C562BA0B53400801A0A /* LoginViewController.swift in Sources */,
+				CEFF0C7A2BA18D1E00801A0A /* SearchViewController.swift in Sources */,
+				CEFF0C8F2BA2C1E800801A0A /* UIStackView + extens.swift in Sources */,
+				CEFF0C7E2BA18D7600801A0A /* ResponsesViewController.swift in Sources */,
+				CEFF0C782BA185A600801A0A /* TabBarController.swift in Sources */,
+				CEFF0C802BA18D8E00801A0A /* MessagesViewController.swift in Sources */,
+				CEFF0C752BA170D500801A0A /* Dynamic.swift in Sources */,
 				CEFF0C522BA0B53400801A0A /* AppDelegate.swift in Sources */,
+				CEFF0C7C2BA18D4E00801A0A /* SelectedViewController.swift in Sources */,
+				CEFF0C822BA18DAC00801A0A /* ProfileViewController.swift in Sources */,
+				CEFF0C712BA1708900801A0A /* LoginViewModel.swift in Sources */,
+				CEFF0C692BA0B61500801A0A /* Coordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,6 +486,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CEFF0C852BA29AC500801A0A /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CEFF0C862BA29AC500801A0A /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CEFF0C852BA29AC500801A0A /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		CEFF0C882BA29AC500801A0A /* SnapKit-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CEFF0C852BA29AC500801A0A /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = "SnapKit-Dynamic";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CEFF0C462BA0B53400801A0A /* Project object */;
 }
