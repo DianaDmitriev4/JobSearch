@@ -13,7 +13,7 @@ final class CodeViewController: UIViewController {
     
     // MARK: - GUI variables
     private lazy var contentView: UIView = {
-       let view = UIView()
+        let view = UIView()
         
         return view
     }()
@@ -28,7 +28,7 @@ final class CodeViewController: UIViewController {
     }()
     
     private lazy var sentCodeLabel: UILabel = { [weak self] in
-       let label = UILabel()
+        let label = UILabel()
         
         label.font = .systemFont(ofSize: 20)
         label.textColor = .white
@@ -38,7 +38,7 @@ final class CodeViewController: UIViewController {
     }()
     
     private lazy var descriptionLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         
         label.font = .systemFont(ofSize: 16)
         label.textColor = .white
@@ -49,47 +49,23 @@ final class CodeViewController: UIViewController {
     }()
     
     private lazy var textFieldContainerView: UIView = {
-       let view = UIView()
+        let view = UIView()
         
         return view
     }()
     
-    private lazy var firstTextField: UITextField = {
-       let textField = UITextField()
-        
-        textField.backgroundColor = .gray2
-        textField.layer.cornerRadius = 5
-        
-        return textField
-    }()
-    
-    private lazy var secondTextField: UITextField = {
-       let textField = UITextField()
-        
-        textField.backgroundColor = .gray2
-        
-        
-        return textField
-    }()
-    
-    private lazy var thirdTextField: UITextField = {
-       let textField = UITextField()
-        
-        textField.backgroundColor = .gray2
-        
-        return textField
-    }()
-    
-    private lazy var fourthTextField: UITextField = {
-       let textField = UITextField()
-        
-        textField.backgroundColor = .gray2
-        
-        return textField
-    }()
+    private lazy var firstTextField = makeTextFields()
+    private lazy var secondTextField = makeTextFields()
+    private lazy var thirdTextField = makeTextFields()
+    private lazy var fourthTextField = makeTextFields()
     
     private lazy var confirmButton: UIButton = {
-       let button = UIButton()
+        let button = UIButton()
+        
+        button.backgroundColor = .darkBlue
+        button.setTitle("Подтвердить", for: .normal)
+        button.setTitleColor(.gray4, for: .normal)
+        button.layer.cornerRadius = 5
         
         return button
     }()
@@ -98,6 +74,8 @@ final class CodeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        firstTextField.becomeFirstResponder()
+        navigationItem.setHidesBackButton(true, animated: false)
     }
     
     // MARK: - Initialization
@@ -127,6 +105,44 @@ final class CodeViewController: UIViewController {
         makeConstraint()
     }
     
+    private func bindViewModel() {
+        viewModel.buttonColor.bind { buttonColor in
+            DispatchQueue.main.async { [weak self] in
+                self?.confirmButton.backgroundColor = buttonColor
+            }
+        }
+        
+        viewModel.textColor.bind { textColor in
+            DispatchQueue.main.async { [weak self] in
+                self?.confirmButton.setTitleColor(textColor, for: .normal)
+            }
+        }
+    }
+    
+    private func makeTextFields() -> UITextField {
+        let textField = UITextField()
+        
+        textField.delegate = self
+        textField.backgroundColor = .gray2
+        textField.layer.cornerRadius = 5
+        textField.keyboardType = .numberPad
+        textField.font = .systemFont(ofSize: 20)
+        textField.textColor = .white
+        textField.textAlignment = .center
+        
+        // TODO: TEXT ALIGNMENT = CENTER!!!!
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .left
+        paragraphStyle.firstLineHeadIndent = 20
+        
+        textField.attributedPlaceholder = NSAttributedString(string: "*", attributes: [.foregroundColor: UIColor.gray3,
+                                                                                       .font: UIFont.systemFont(ofSize: 20),
+                                                                                       .paragraphStyle: paragraphStyle])
+        
+        return textField
+    }
+    
+    
     private func makeConstraint() {
         contentView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(162)
@@ -140,13 +156,35 @@ final class CodeViewController: UIViewController {
         }
         
         let textFieldsArray: [UITextField] = [firstTextField, secondTextField, thirdTextField, fourthTextField]
-        textFieldsArray.forEach { textField in
-            textField.snp.makeConstraints { make in
+        for i in 0..<textFieldsArray.count {
+            textFieldsArray[i].snp.makeConstraints { make in
                 make.width.equalTo(48)
                 make.height.equalTo(48)
-                make.trailing.equalTo(textField.snp.leading)
+                if i > 0 {
+                    make.leading.equalTo(textFieldsArray[i - 1].snp.trailing).offset(5)
+                }
             }
         }
     }
-    
+}
+
+extension CodeViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let currentText = textField.text else { return false }
+        if currentText.count > 0 {
+            switch textField {
+            case firstTextField:
+                secondTextField.becomeFirstResponder()
+            case secondTextField:
+                thirdTextField.becomeFirstResponder()
+            case thirdTextField:
+                fourthTextField.becomeFirstResponder()
+            case fourthTextField:
+                fourthTextField.resignFirstResponder()
+            default:
+                break
+            }
+        }
+        return true
+    }
 }

@@ -54,4 +54,8 @@ final class LoginViewModel: LoginViewModelProtocol {
             textColor.value = UIColor.gray4
         }
     }
+    
+    func checkCode() {
+        
+    }
 }
