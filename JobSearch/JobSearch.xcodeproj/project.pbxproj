@@ -28,6 +28,7 @@
 		CEFF0C8C2BA2BAC500801A0A /* UIColor + Extens.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C8B2BA2BAC500801A0A /* UIColor + Extens.swift */; };
 		CEFF0C8F2BA2C1E800801A0A /* UIStackView + extens.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C8E2BA2C1E800801A0A /* UIStackView + extens.swift */; };
 		CEFF0C912BA2C35D00801A0A /* UIView + Extens.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C902BA2C35D00801A0A /* UIView + Extens.swift */; };
+		CEFF0C932BA35A7600801A0A /* String + Extens.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C922BA35A7600801A0A /* String + Extens.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		CEFF0C8B2BA2BAC500801A0A /* UIColor + Extens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extens.swift"; sourceTree = "<group>"; };
 		CEFF0C8E2BA2C1E800801A0A /* UIStackView + extens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView + extens.swift"; sourceTree = "<group>"; };
 		CEFF0C902BA2C35D00801A0A /* UIView + Extens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extens.swift"; sourceTree = "<group>"; };
+		CEFF0C922BA35A7600801A0A /* String + Extens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Extens.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +180,7 @@
 				CEFF0C8B2BA2BAC500801A0A /* UIColor + Extens.swift */,
 				CEFF0C8E2BA2C1E800801A0A /* UIStackView + extens.swift */,
 				CEFF0C902BA2C35D00801A0A /* UIView + Extens.swift */,
+				CEFF0C922BA35A7600801A0A /* String + Extens.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 				CEFF0C522BA0B53400801A0A /* AppDelegate.swift in Sources */,
 				CEFF0C7C2BA18D4E00801A0A /* SelectedViewController.swift in Sources */,
 				CEFF0C822BA18DAC00801A0A /* ProfileViewController.swift in Sources */,
+				CEFF0C932BA35A7600801A0A /* String + Extens.swift in Sources */,
 				CEFF0C712BA1708900801A0A /* LoginViewModel.swift in Sources */,
 				CEFF0C692BA0B61500801A0A /* Coordinator.swift in Sources */,
 			);

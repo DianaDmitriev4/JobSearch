@@ -11,11 +11,11 @@ import UIKit
 final class LoginViewController: UIViewController {
     // MARK: - Properties
     private var email: String?
-    private let activeButtonColor = UIColor.systemBlue
+    //    private let activeButtonColor = UIColor.systemBlue
     private let inactiveButtonColor = UIColor.darkBlue
     private let activeTextColor = UIColor.white
     private let inactiveTextColor = UIColor.gray4
-    private var viewModel: LoginViewModelProtocol? // TODO: COORDINATOR
+    private var viewModel: LoginViewModelProtocol<Any>? // TODO: COORDINATOR
     
     // MARK: - GUI variables
     private lazy var jobContentView: UIView = {
@@ -89,6 +89,8 @@ final class LoginViewController: UIViewController {
         button.setTitleColor(inactiveTextColor, for: .normal) // TODO: WILL CHANGE
         button.layer.cornerRadius = 7
         button.titleLabel?.font = .systemFont(ofSize: 14)
+        button.addTarget(self, action: #selector(checkEmail), for: .touchUpInside)
+        //        button.isUserInteractionEnabled = false
         
         return button
     }()
@@ -151,13 +153,18 @@ final class LoginViewController: UIViewController {
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
         
         setupUI()
+        emailTextField.delegate = self
     }
     
     // MARK: - Private methods
+    @objc private func checkEmail() {
+        viewModel?.buttonPressed(email: email, button: continueButton)
+    }
+    
     private func setupUI() {
+        view.backgroundColor = .black
         createNavBar()
         
         view.addSubviews(views: [jobContentView, employeeContentView])
@@ -171,6 +178,19 @@ final class LoginViewController: UIViewController {
         employeeContentView.addSubviews(views: [searchEmployeeLabel, descriptionLabel, searchEmployeeButton])
         
         makeConstraint()
+    }
+    
+    private func bindViewModel() {
+        viewModel?.buttonColor.bind( { (buttonColor) in
+            DispatchQueue.main.async { [weak self] in
+                self?.continueButton.backgroundColor = buttonColor
+            }
+        } )
+        viewModel?.textColor.bind( { (textColor) in
+            DispatchQueue.main.async { [weak self] in
+                self?.continueButton.setTitleColor(textColor, for: .normal)
+            }
+        })
     }
     
     private func createNavBar() {
@@ -233,5 +253,14 @@ final class LoginViewController: UIViewController {
             make.width.equalTo(296)
             make.height.equalTo(32)
         }
+    }
+}
+
+// MARK: - UITextFieldDelegate
+extension LoginViewController: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) else { return }
+        email = text
+        
     }
 }
