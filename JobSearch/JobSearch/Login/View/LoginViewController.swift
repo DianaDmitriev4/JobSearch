@@ -10,12 +10,14 @@ import UIKit
 
 final class LoginViewController: UIViewController {
     // MARK: - Properties
-    private var email: String?
-    //    private let activeButtonColor = UIColor.systemBlue
+    private var email: String? {
+        didSet {
+            viewModel.textDidChange(text: email ?? "", button: continueButton)
+        }
+    }
     private let inactiveButtonColor = UIColor.darkBlue
-    private let activeTextColor = UIColor.white
     private let inactiveTextColor = UIColor.gray4
-    private var viewModel: LoginViewModelProtocol<Any>? // TODO: COORDINATOR
+    private var viewModel: LoginViewModelProtocol // TODO: COORDINATOR
     
     // MARK: - GUI variables
     private lazy var jobContentView: UIView = {
@@ -46,15 +48,28 @@ final class LoginViewController: UIViewController {
         return label
     }()
     
+    private lazy var containerTextFieldView: UIView = {
+        let view = UIView()
+        
+        return view
+    }()
+    
     private lazy var emailTextField: UITextField = {
         let textField = UITextField()
         
-        textField.backgroundColor = .gray2
+        
         textField.layer.cornerRadius = 5
+        textField.layer.shadowColor = UIColor.black.cgColor
+        textField.layer.shadowOpacity = 0.5
+        textField.layer.shadowOffset = CGSize(width: 0, height: 4)
+        textField.layer.shadowRadius = 2
+        textField.layer.borderWidth = 1
+        textField.layer.borderColor = UIColor.clear.cgColor
+        
         textField.textColor = .white
         textField.clearButtonMode = .whileEditing
-        
-        // TODO: Make right space
+        textField.backgroundColor = .gray2
+
         if let clearButton = textField.value(forKey: "clearButton") as? UIButton {
             clearButton.setImage(UIImage(named: "clear"), for: .normal)
         }
@@ -81,6 +96,15 @@ final class LoginViewController: UIViewController {
         return textField
     }()
     
+    private lazy var descriptionTextFieldLabel: UILabel = {
+       let label = UILabel()
+        
+        label.font = .systemFont(ofSize: 12)
+        label.textColor = .red
+        
+        return label
+    }()
+    
     private lazy var continueButton: UIButton = {
         let button = UIButton()
         
@@ -90,8 +114,6 @@ final class LoginViewController: UIViewController {
         button.layer.cornerRadius = 7
         button.titleLabel?.font = .systemFont(ofSize: 14)
         button.addTarget(self, action: #selector(checkEmail), for: .touchUpInside)
-        //        button.isUserInteractionEnabled = false
-        
         return button
     }()
     
@@ -158,9 +180,23 @@ final class LoginViewController: UIViewController {
         emailTextField.delegate = self
     }
     
+    // MARK: - Initialization
+    init(viewModel: LoginViewModelProtocol) {
+        self.viewModel = viewModel
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Private methods
     @objc private func checkEmail() {
-        viewModel?.buttonPressed(email: email, button: continueButton)
+       let isLogin = viewModel.buttonPressed(email: email)
+        if isLogin {
+            navigationController?.pushViewController(CodeViewController(viewModel: self.viewModel), animated: true) //TODO: COORDINATOR
+        }
     }
     
     private func setupUI() {
@@ -171,26 +207,41 @@ final class LoginViewController: UIViewController {
         
         // JobContentView
         jobContentView.addSubview(stackView)
-        stackView.addArrangedSubviews(views: [searchJobLabel, emailTextField, buttonsContainerView])
         buttonsContainerView.addSubviews(views: [continueButton, withPasswordButton])
+        containerTextFieldView.addSubviews(views: [emailTextField, descriptionTextFieldLabel])
+        stackView.addArrangedSubviews(views: [searchJobLabel, containerTextFieldView, buttonsContainerView])
         
         // EmployeeContentView
         employeeContentView.addSubviews(views: [searchEmployeeLabel, descriptionLabel, searchEmployeeButton])
         
         makeConstraint()
+        bindViewModel()
     }
     
     private func bindViewModel() {
-        viewModel?.buttonColor.bind( { (buttonColor) in
+        viewModel.buttonColor.bind { buttonColor in
             DispatchQueue.main.async { [weak self] in
                 self?.continueButton.backgroundColor = buttonColor
             }
-        } )
-        viewModel?.textColor.bind( { (textColor) in
+        }
+        
+        viewModel.textColor.bind { textColor in
             DispatchQueue.main.async { [weak self] in
                 self?.continueButton.setTitleColor(textColor, for: .normal)
             }
-        })
+        }
+        
+        viewModel.descriptionText.bind { descriptionText in
+            DispatchQueue.main.async { [weak self] in
+                self?.descriptionTextFieldLabel.text = descriptionText
+            }
+        }
+        
+        viewModel.borderColor.bind { borderColor in
+            DispatchQueue.main.async { [weak self] in
+                self?.emailTextField.layer.borderColor = borderColor.cgColor
+            }
+        }
     }
     
     private func createNavBar() {
@@ -211,12 +262,21 @@ final class LoginViewController: UIViewController {
         }
         
         stackView.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview().inset(24)
+            make.top.bottom.equalToSuperview().inset(22)
             make.leading.trailing.equalToSuperview().inset(16)
+        }
+        
+        containerTextFieldView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
         }
         
         emailTextField.snp.makeConstraints { make in
             make.height.equalTo(40)
+            make.leading.trailing.equalToSuperview()
+        }
+        
+        descriptionTextFieldLabel.snp.makeConstraints { make in
+            make.top.equalTo(emailTextField.snp.bottom).offset(3)
         }
         
         continueButton.snp.makeConstraints { make in
@@ -257,10 +317,10 @@ final class LoginViewController: UIViewController {
 }
 
 // MARK: - UITextFieldDelegate
+
 extension LoginViewController: UITextFieldDelegate {
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
         guard let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) else { return }
         email = text
-        
     }
 }
