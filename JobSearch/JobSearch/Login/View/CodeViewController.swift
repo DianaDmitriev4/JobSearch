@@ -10,6 +10,7 @@ import UIKit
 final class CodeViewController: UIViewController {
     // MARK: - Properties
     private let viewModel: LoginViewModelProtocol
+    private var isAllTextFieldsFilled = false
     
     // MARK: - GUI variables
     private lazy var contentView: UIView = {
@@ -66,6 +67,8 @@ final class CodeViewController: UIViewController {
         button.setTitle("Подтвердить", for: .normal)
         button.setTitleColor(.gray4, for: .normal)
         button.layer.cornerRadius = 5
+        button.addTarget(self, action: #selector(checkCode), for: .touchUpInside)
+        button.isUserInteractionEnabled = false
         
         return button
     }()
@@ -90,6 +93,14 @@ final class CodeViewController: UIViewController {
     }
     
     // MARK: - Private methods
+    @objc private func checkCode() {
+        if isAllTextFieldsFilled {
+            let newNavigationController = UINavigationController(rootViewController: TabBarController())
+            // TODO: ADD SCENE DELEGATE
+            UIApplication.shared.keyWindow?.rootViewController = newNavigationController
+        }
+    }
+    
     private func setupUI() {
         view.backgroundColor = .black
         view.addSubview(contentView)
@@ -103,6 +114,7 @@ final class CodeViewController: UIViewController {
                                               textFieldContainerView,
                                               confirmButton])
         makeConstraint()
+        bindViewModel()
     }
     
     private func bindViewModel() {
@@ -131,6 +143,7 @@ final class CodeViewController: UIViewController {
         textField.textAlignment = .center
         
         // TODO: TEXT ALIGNMENT = CENTER!!!!
+        // TODO: FIX DELETE CHARACTERS
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .left
         paragraphStyle.firstLineHeadIndent = 20
@@ -155,7 +168,7 @@ final class CodeViewController: UIViewController {
             make.edges.equalToSuperview()
         }
         
-        let textFieldsArray: [UITextField] = [firstTextField, secondTextField, thirdTextField, fourthTextField]
+        let textFieldsArray = [firstTextField, secondTextField, thirdTextField, fourthTextField]
         for i in 0..<textFieldsArray.count {
             textFieldsArray[i].snp.makeConstraints { make in
                 make.width.equalTo(48)
@@ -168,9 +181,13 @@ final class CodeViewController: UIViewController {
     }
 }
 
+// MARK: - UITextFieldDelegate
 extension CodeViewController: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard let currentText = textField.text else { return false }
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        let textFieldsArray = [firstTextField, secondTextField, thirdTextField, fourthTextField]
+        isAllTextFieldsFilled = viewModel.changeColorAndCheckFullness(textFields: textFieldsArray, button: confirmButton)
+        
+        guard let currentText = textField.text else { return }
         if currentText.count > 0 {
             switch textField {
             case firstTextField:
@@ -185,6 +202,5 @@ extension CodeViewController: UITextFieldDelegate {
                 break
             }
         }
-        return true
     }
 }

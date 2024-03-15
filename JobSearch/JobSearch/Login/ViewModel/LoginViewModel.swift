@@ -16,6 +16,7 @@ protocol LoginViewModelProtocol {
     
     func buttonPressed(email: String?) -> Bool
     func textDidChange(text: String, button: UIButton)
+    func changeColorAndCheckFullness(textFields: [UITextField], button: UIButton) -> Bool
 }
 
 final class LoginViewModel: LoginViewModelProtocol {
@@ -55,7 +56,15 @@ final class LoginViewModel: LoginViewModelProtocol {
         }
     }
     
-    func checkCode() {
+    func changeColorAndCheckFullness(textFields: [UITextField], button: UIButton) -> Bool {
+        for textField in textFields {
+            guard let text = textField.text,
+                    !text.isEmpty else { return false }
+        }
+        buttonColor.value = UIColor.systemBlue
+        textColor.value = UIColor.white
         
+        button.isUserInteractionEnabled = true
+        return true
     }
 }
