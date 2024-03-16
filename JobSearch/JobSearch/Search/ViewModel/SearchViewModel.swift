@@ -22,10 +22,10 @@ final class SearchViewModel: SearchViewModelProtocol{
                                              QuickFiltersModel(icon: UIImage(named: "secondIcon") ?? .clear,
                                                                iconColor: .darkGreen,
                                                                description: "Поднять резюме в поиске", 
-                                                               textAction: nil),
+                                                               textAction: "Поднять"),
                                              QuickFiltersModel(icon: UIImage(named: "thirdIcon") ?? .clear,
                                                                iconColor: .darkGreen,
                                                                description: "Временная работа и подработка", 
-                                                               textAction: "Поднять")
+                                                               textAction: nil)
     ]
 }

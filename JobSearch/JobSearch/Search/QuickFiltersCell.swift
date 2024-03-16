@@ -19,7 +19,7 @@ final class QuickFiltersCell: UICollectionViewCell {
     
     private lazy var iconImageView: UIImageView = {
        let view = UIImageView()
-        view.layer.cornerRadius = 12
+        view.layer.cornerRadius = 16
         
         return view
     }()
@@ -61,7 +61,7 @@ final class QuickFiltersCell: UICollectionViewCell {
         iconImageView.backgroundColor = dataSource.iconColor
         descriptionLabel.text = dataSource.description
         if let textButton = dataSource.textAction {
-            raiseLabel.text = dataSource.textAction
+            raiseLabel.text = textButton
         }
     }
 
@@ -79,17 +79,18 @@ final class QuickFiltersCell: UICollectionViewCell {
         
         iconImageView.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(8)
+            make.height.width.equalTo(32)
             make.top.equalToSuperview().inset(10)
         }
         
         descriptionLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(8)
+            make.leading.trailing.equalToSuperview().inset(8)
             make.top.equalToSuperview().inset(58)
         }
         
         raiseLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(8)
-            make.top.equalTo(descriptionLabel).offset(5)
+            make.top.equalTo(descriptionLabel.snp.bottom).offset(5)
         }
     }
 }

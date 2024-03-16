@@ -7,7 +7,6 @@
 
 import Foundation
 
-// MARK: - Welcome3
 struct VacanciesModel {
     let offers: [Offer]
     let vacancies: [Vacancy]
@@ -15,7 +14,7 @@ struct VacanciesModel {
 
 // MARK: - Offer
 struct Offer {
-    let id: String?
+    let id: String
     let title: String
     let link: String
     let button: Button?
@@ -38,8 +37,8 @@ struct Vacancy {
     let isFavorite: Bool
     let salary: Salary
     let schedules: [String]
-    let appliedNumber: Int?
-    let vacancyDescription: String?
+    let appliedNumber: Int
+    let vacancyDescription: String
     let responsibilities: String
     let questions: [String]
 }
@@ -57,5 +56,5 @@ struct Experience {
 // MARK: - Salary
 struct Salary {
     let full: String
-    let short: String?
+    let short: String
 }
