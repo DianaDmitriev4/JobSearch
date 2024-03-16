@@ -32,6 +32,9 @@
 		CEFF0C952BA4167900801A0A /* CodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C942BA4167900801A0A /* CodeViewController.swift */; };
 		CEFF0C972BA4883C00801A0A /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C962BA4883C00801A0A /* SearchViewModel.swift */; };
 		CEFF0C9A2BA4885800801A0A /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C992BA4885800801A0A /* Model.swift */; };
+		CEFF0C9D2BA56FE800801A0A /* QuickFiltersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C9C2BA56FE800801A0A /* QuickFiltersCell.swift */; };
+		CEFF0C9F2BA5701D00801A0A /* VacanciesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C9E2BA5701D00801A0A /* VacanciesCell.swift */; };
+		CEFF0CA12BA5738300801A0A /* QuickFiltersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0CA02BA5738300801A0A /* QuickFiltersModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +63,9 @@
 		CEFF0C942BA4167900801A0A /* CodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeViewController.swift; sourceTree = "<group>"; };
 		CEFF0C962BA4883C00801A0A /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		CEFF0C992BA4885800801A0A /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		CEFF0C9C2BA56FE800801A0A /* QuickFiltersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickFiltersCell.swift; sourceTree = "<group>"; };
+		CEFF0C9E2BA5701D00801A0A /* VacanciesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacanciesCell.swift; sourceTree = "<group>"; };
+		CEFF0CA02BA5738300801A0A /* QuickFiltersModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickFiltersModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +183,8 @@
 			isa = PBXGroup;
 			children = (
 				CEFF0C792BA18D1E00801A0A /* SearchViewController.swift */,
+				CEFF0C9C2BA56FE800801A0A /* QuickFiltersCell.swift */,
+				CEFF0C9E2BA5701D00801A0A /* VacanciesCell.swift */,
 				CEFF0C982BA4884000801A0A /* ViewModel */,
 				CEFF0C9B2BA4885C00801A0A /* Model */,
 			);
@@ -206,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				CEFF0C992BA4885800801A0A /* Model.swift */,
+				CEFF0CA02BA5738300801A0A /* QuickFiltersModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -288,6 +297,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEFF0C9A2BA4885800801A0A /* Model.swift in Sources */,
+				CEFF0CA12BA5738300801A0A /* QuickFiltersModel.swift in Sources */,
 				CEFF0C8C2BA2BAC500801A0A /* UIColor + Extens.swift in Sources */,
 				CEFF0C952BA4167900801A0A /* CodeViewController.swift in Sources */,
 				CEFF0C6B2BA0B67A00801A0A /* AppCoordinator.swift in Sources */,
@@ -295,6 +305,7 @@
 				CEFF0C732BA170AA00801A0A /* LoginModel.swift in Sources */,
 				CEFF0C842BA1DF1100801A0A /* ContainerViewController.swift in Sources */,
 				CEFF0C972BA4883C00801A0A /* SearchViewModel.swift in Sources */,
+				CEFF0C9F2BA5701D00801A0A /* VacanciesCell.swift in Sources */,
 				CEFF0C562BA0B53400801A0A /* LoginViewController.swift in Sources */,
 				CEFF0C7A2BA18D1E00801A0A /* SearchViewController.swift in Sources */,
 				CEFF0C8F2BA2C1E800801A0A /* UIStackView + extens.swift in Sources */,
@@ -302,6 +313,7 @@
 				CEFF0C782BA185A600801A0A /* TabBarController.swift in Sources */,
 				CEFF0C802BA18D8E00801A0A /* MessagesViewController.swift in Sources */,
 				CEFF0C752BA170D500801A0A /* Dynamic.swift in Sources */,
+				CEFF0C9D2BA56FE800801A0A /* QuickFiltersCell.swift in Sources */,
 				CEFF0C522BA0B53400801A0A /* AppDelegate.swift in Sources */,
 				CEFF0C7C2BA18D4E00801A0A /* SelectedViewController.swift in Sources */,
 				CEFF0C822BA18DAC00801A0A /* ProfileViewController.swift in Sources */,

@@ -12,5 +12,5 @@ protocol SearchViewModelProtocol {
 }
 
 final class SearchViewModel: SearchViewModelProtocol{
-    
+    let quickFilters: [QuickFiltersModel] = 
 }
