@@ -68,7 +68,7 @@ final class LoginViewController: UIViewController {
         textField.textColor = .white
         textField.clearButtonMode = .whileEditing
         textField.backgroundColor = .gray2
-
+        
         if let clearButton = textField.value(forKey: "clearButton") as? UIButton {
             clearButton.setImage(UIImage(named: "clear"), for: .normal)
         }
@@ -96,7 +96,7 @@ final class LoginViewController: UIViewController {
     }()
     
     private lazy var descriptionTextFieldLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         
         label.font = .systemFont(ofSize: 12)
         label.textColor = .red
@@ -192,7 +192,7 @@ final class LoginViewController: UIViewController {
     
     // MARK: - Private methods
     @objc private func checkEmail() {
-       let isLogin = viewModel.buttonPressed(email: email)
+        let isLogin = viewModel.buttonPressed(email: email)
         if isLogin {
             navigationController?.pushViewController(CodeViewController(viewModel: self.viewModel), animated: true) //TODO: COORDINATOR
         }
@@ -316,7 +316,6 @@ final class LoginViewController: UIViewController {
 }
 
 // MARK: - UITextFieldDelegate
-
 extension LoginViewController: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
         guard let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) else { return }

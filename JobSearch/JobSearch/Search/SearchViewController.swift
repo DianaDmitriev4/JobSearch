@@ -164,6 +164,11 @@ final class SearchViewController: UIViewController {
         view.addSubviews(views: [searchBar, settingsButton, collectionView, moreButton])
         
         makeConstraint()
+        setViewModel()
+    }
+    
+    private func setViewModel() {
+        viewModel.getVacancies()
     }
     
     private func makeConstraint() {
