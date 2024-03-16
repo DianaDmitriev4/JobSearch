@@ -19,6 +19,7 @@ final class QuickFiltersCell: UICollectionViewCell {
     
     private lazy var iconImageView: UIImageView = {
        let view = UIImageView()
+        view.layer.cornerRadius = 12
         
         return view
     }()
@@ -26,11 +27,19 @@ final class QuickFiltersCell: UICollectionViewCell {
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         
+        label.font = .systemFont(ofSize: 14)
+        label.textColor = .white
+        label.numberOfLines = 0
+        
         return label
     }()
     
-    private lazy var button: UILabel = {
+    private lazy var raiseLabel: UILabel = {
         let label = UILabel()
+        
+        label.font = .systemFont(ofSize: 14)
+        label.textColor = .green
+        label.numberOfLines = 1
         
         return label
     }()
@@ -47,18 +56,40 @@ final class QuickFiltersCell: UICollectionViewCell {
     }
     
     // MARK: - Methods
-    func set() {
-        
+    func set(_ dataSource: QuickFiltersModel) {
+        iconImageView.image = dataSource.icon
+        iconImageView.backgroundColor = dataSource.iconColor
+        descriptionLabel.text = dataSource.description
+        if let textButton = dataSource.textAction {
+            raiseLabel.text = dataSource.textAction
+        }
     }
 
     // MARK: - Private methods
     private func setupUI() {
+        addSubview(container)
+        container.addSubviews(views: [iconImageView, descriptionLabel, raiseLabel])
         makeConstraint()
     }
     
     private func makeConstraint() {
         container.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+        }
+        
+        iconImageView.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(8)
+            make.top.equalToSuperview().inset(10)
+        }
+        
+        descriptionLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(8)
+            make.top.equalToSuperview().inset(58)
+        }
+        
+        raiseLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(8)
+            make.top.equalTo(descriptionLabel).offset(5)
         }
     }
 }

@@ -31,7 +31,7 @@
 		CEFF0C932BA35A7600801A0A /* String + Extens.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C922BA35A7600801A0A /* String + Extens.swift */; };
 		CEFF0C952BA4167900801A0A /* CodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C942BA4167900801A0A /* CodeViewController.swift */; };
 		CEFF0C972BA4883C00801A0A /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C962BA4883C00801A0A /* SearchViewModel.swift */; };
-		CEFF0C9A2BA4885800801A0A /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C992BA4885800801A0A /* Model.swift */; };
+		CEFF0C9A2BA4885800801A0A /* VacanciesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C992BA4885800801A0A /* VacanciesModel.swift */; };
 		CEFF0C9D2BA56FE800801A0A /* QuickFiltersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C9C2BA56FE800801A0A /* QuickFiltersCell.swift */; };
 		CEFF0C9F2BA5701D00801A0A /* VacanciesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C9E2BA5701D00801A0A /* VacanciesCell.swift */; };
 		CEFF0CA12BA5738300801A0A /* QuickFiltersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0CA02BA5738300801A0A /* QuickFiltersModel.swift */; };
@@ -62,7 +62,7 @@
 		CEFF0C922BA35A7600801A0A /* String + Extens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Extens.swift"; sourceTree = "<group>"; };
 		CEFF0C942BA4167900801A0A /* CodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeViewController.swift; sourceTree = "<group>"; };
 		CEFF0C962BA4883C00801A0A /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
-		CEFF0C992BA4885800801A0A /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		CEFF0C992BA4885800801A0A /* VacanciesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacanciesModel.swift; sourceTree = "<group>"; };
 		CEFF0C9C2BA56FE800801A0A /* QuickFiltersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickFiltersCell.swift; sourceTree = "<group>"; };
 		CEFF0C9E2BA5701D00801A0A /* VacanciesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacanciesCell.swift; sourceTree = "<group>"; };
 		CEFF0CA02BA5738300801A0A /* QuickFiltersModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickFiltersModel.swift; sourceTree = "<group>"; };
@@ -213,7 +213,7 @@
 		CEFF0C9B2BA4885C00801A0A /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CEFF0C992BA4885800801A0A /* Model.swift */,
+				CEFF0C992BA4885800801A0A /* VacanciesModel.swift */,
 				CEFF0CA02BA5738300801A0A /* QuickFiltersModel.swift */,
 			);
 			path = Model;
@@ -296,7 +296,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEFF0C9A2BA4885800801A0A /* Model.swift in Sources */,
+				CEFF0C9A2BA4885800801A0A /* VacanciesModel.swift in Sources */,
 				CEFF0CA12BA5738300801A0A /* QuickFiltersModel.swift in Sources */,
 				CEFF0C8C2BA2BAC500801A0A /* UIColor + Extens.swift in Sources */,
 				CEFF0C952BA4167900801A0A /* CodeViewController.swift in Sources */,

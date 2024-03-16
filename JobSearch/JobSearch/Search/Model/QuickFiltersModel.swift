@@ -10,6 +10,6 @@ import UIKit
 struct QuickFiltersModel {
     let icon: UIImage
     let iconColor: UIColor
-    let description: UILabel
-    let button: UIButton?
+    let description: String
+    let textAction: String?
 }

@@ -144,6 +144,8 @@ final class SearchViewController: UIViewController {
     
     // MARK: - Private methods
     private func setupUI() {
+        collectionView.register(QuickFiltersCell.self, forCellWithReuseIdentifier: "QuickFiltersCell")
+        collectionView.register(VacanciesCell.self, forCellWithReuseIdentifier: "VacanciesCell")
         view.backgroundColor = .black
         view.addSubviews(views: [searchBar, settingsButton, collectionView])
 //        containerView.addSubviews(views: [firstMenuView, secondMenuView, thirdMenuView])
@@ -183,8 +185,16 @@ final class SearchViewController: UIViewController {
 }
 
 extension SearchViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        2
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        <#code#>
+        if section == 1 {
+            return viewModel.quickFilters.count
+        } else {
+           return viewModel.vacancies.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

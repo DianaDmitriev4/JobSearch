@@ -1,5 +1,5 @@
 //
-//  Model.swift
+//  VacanciesModel.swift
 //  JobSearch
 //
 //  Created by User on 15.03.2024.
@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Welcome3
-struct Welcome3 {
+struct VacanciesModel {
     let offers: [Offer]
     let vacancies: [Vacancy]
 }
