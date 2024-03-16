@@ -170,6 +170,7 @@ final class VacanciesCell: UICollectionViewCell {
         jobTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(lookingNumberLabel.snp.bottom).offset(10)
             make.leading.equalToSuperview().inset(16)
+            make.trailing.equalToSuperview().inset(16)
         }
         
         salaryLabel.snp.makeConstraints { make in
@@ -197,7 +198,7 @@ final class VacanciesCell: UICollectionViewCell {
         }
         
         experienceLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(16)
+            make.leading.equalTo(experienceImageView.snp.leading).offset(5)
             make.top.equalTo(cityAndCompanyLabel.snp.bottom).offset(10)
         }
         
