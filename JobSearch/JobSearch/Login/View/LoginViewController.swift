@@ -57,7 +57,6 @@ final class LoginViewController: UIViewController {
     private lazy var emailTextField: UITextField = {
         let textField = UITextField()
         
-        
         textField.layer.cornerRadius = 5
         textField.layer.shadowColor = UIColor.black.cgColor
         textField.layer.shadowOpacity = 0.5
