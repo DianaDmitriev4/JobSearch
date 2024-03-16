@@ -174,9 +174,7 @@
 		CEFF0C8A2BA2AE4D00801A0A /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				CEFF0C792BA18D1E00801A0A /* SearchViewController.swift */,
-				CEFF0C9C2BA56FE800801A0A /* QuickFiltersCell.swift */,
-				CEFF0C9E2BA5701D00801A0A /* VacanciesCell.swift */,
+				CEFF0CA52BA60D9700801A0A /* View */,
 				CEFF0C982BA4884000801A0A /* ViewModel */,
 				CEFF0C9B2BA4885C00801A0A /* Model */,
 			);
@@ -217,6 +215,16 @@
 				CEFF0CA22BA5C8AA00801A0A /* ApiManager.swift */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		CEFF0CA52BA60D9700801A0A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CEFF0C792BA18D1E00801A0A /* SearchViewController.swift */,
+				CEFF0C9C2BA56FE800801A0A /* QuickFiltersCell.swift */,
+				CEFF0C9E2BA5701D00801A0A /* VacanciesCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

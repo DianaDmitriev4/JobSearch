@@ -14,15 +14,12 @@ struct VacanciesModel: Codable {
 
 // MARK: - Offer
 struct Offer: Codable  {
-    let id: String?
-    let title: String?
-    let link: String?
-    let button: Button?
+    let id: String?, title: String?, link: String?, button: Button?
 }
 
 // MARK: - Vacancy
 struct Vacancy: Codable  {
-    let id: String?
+//    let id: String?
     let lookingNumber: Int?
     let title: String?
     let address: Address

@@ -9,7 +9,7 @@ import UIKit
 
 final class SearchViewController: UIViewController {
     // MARK: - Properties
-    private let viewModel: SearchViewModelProtocol
+    private var viewModel: SearchViewModelProtocol
     
     // MARK: - GUI Variables
     private lazy var searchBar: UISearchBar = {
@@ -40,81 +40,7 @@ final class SearchViewController: UIViewController {
         return button
     }()
     
-    //    private lazy var containerView: UIView = {
-    //        let containerView = UIView()
-    //
-    //        return containerView
-    //    }()
-    //
-    //    private lazy var firstImageView: UIImageView = {
-    //        let imageView = UIImageView()
-    //
-    //        imageView.image = UIImage(named: "firstMenu")
-    //        imageView.backgroundColor = .darkBlue
-    //
-    //        return imageView
-    //    }()
-    //
-    //    private lazy var secondImageView: UIImageView = {
-    //        let imageView = UIImageView()
-    //
-    //        imageView.image = UIImage(named: "secondMenu")
-    //        imageView.backgroundColor = .darkGreen
-    //
-    //        return imageView
-    //    }()
-    //
-    //    private lazy var firstLabel: UILabel = {
-    //       let label = UILabel()
-    //
-    //        label
-    //
-    //        return label
-    //    }()
-    //
-    //    private lazy var secondLabel: UILabel = {
-    //       let label = UILabel()
-    //
-    //        return label
-    //    }()
-    //
-    //    private lazy var thirdLabel: UILabel = {
-    //       let label = UILabel()
-    //
-    //        return label
-    //    }()
-    //
-    //    private lazy var thirdImageView: UIImageView = {
-    //        let imageView = UIImageView()
-    //
-    //        imageView.image = UIImage(named: "thirdMenu")
-    //        imageView.backgroundColor = .darkGreen
-    //
-    //        return imageView
-    //    }()
-    //
-    //    private lazy var firstMenuView: UIView = {
-    //        let view = UIView()
-    //
-    //        view.backgroundColor = .gray1
-    //        view.layer.cornerRadius = 8
-    //
-    //        return view
-    //    }()
-    //
-    //    private lazy var secondMenuView: UIView = {
-    //        let view = UIView()
-    //
-    //        return view
-    //    }()
-    //
-    //    private lazy var thirdMenuView: UIView = {
-    //        let view = UIView()
-    //
-    //        return view
-    //    }()
-    
-    private lazy var collectionView: UICollectionView = {
+    private lazy var vacancyCollectionView: UICollectionView = {
         let collectionViewFlowLayout = UICollectionViewFlowLayout()
         
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: collectionViewFlowLayout)
@@ -127,9 +53,9 @@ final class SearchViewController: UIViewController {
     }()
     
     private lazy var moreButton: UIButton = {
-       let button = UIButton()
+        let button = UIButton()
         
-        button.setTitle("Ещё \(viewModel.vacancies.count - 3) вакансии", for: .normal)
+        
         button.backgroundColor = .systemBlue
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 16)
@@ -158,10 +84,10 @@ final class SearchViewController: UIViewController {
     
     // MARK: - Private methods
     private func setupUI() {
-        collectionView.register(QuickFiltersCell.self, forCellWithReuseIdentifier: "QuickFiltersCell")
-        collectionView.register(VacanciesCell.self, forCellWithReuseIdentifier: "VacanciesCell")
+        vacancyCollectionView.register(QuickFiltersCell.self, forCellWithReuseIdentifier: "QuickFiltersCell")
+        vacancyCollectionView.register(VacanciesCell.self, forCellWithReuseIdentifier: "VacanciesCell")
         view.backgroundColor = .black
-        view.addSubviews(views: [searchBar, settingsButton, collectionView, moreButton])
+        view.addSubviews(views: [searchBar, settingsButton, vacancyCollectionView, moreButton])
         
         makeConstraint()
         setViewModel()
@@ -169,6 +95,13 @@ final class SearchViewController: UIViewController {
     
     private func setViewModel() {
         viewModel.getVacancies()
+        viewModel.numberOfVacancies = { [weak self] number in
+            self?.moreButton.setTitle("Ещё \(number - 3) вакансии", for: .normal)
+        }
+        
+        viewModel.reloadCollectionView = {
+            self.vacancyCollectionView.reloadData()
+        }
     }
     
     private func makeConstraint() {
@@ -185,7 +118,7 @@ final class SearchViewController: UIViewController {
             make.top.equalToSuperview().inset(48)
         }
         
-        collectionView.snp.makeConstraints { make in
+        vacancyCollectionView.snp.makeConstraints { make in
             make.top.equalTo(searchBar.snp.bottom).offset(33)
             make.leading.trailing.equalToSuperview().inset(16)
             make.bottom.equalTo(moreButton.snp.top).offset(23)
@@ -210,7 +143,8 @@ extension SearchViewController: UICollectionViewDataSource {
         if section == 0 {
             return viewModel.quickFilters.count
         } else {
-            return viewModel.vacancies.count
+            let firstThree = viewModel.vacancies.prefix(3)
+            return firstThree.count
         }
     }
     
@@ -223,6 +157,7 @@ extension SearchViewController: UICollectionViewDataSource {
         } else {
             guard let vacanciesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "VacanciesCell", for: indexPath)
                     as? VacanciesCell else { return UICollectionViewCell() }
+            vacanciesCell.set(viewModel.vacancies[indexPath.row])
             
             return vacanciesCell
         }
@@ -240,30 +175,33 @@ extension SearchViewController: UICollectionViewDelegate {
     }
 }
 
-func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-    if section == 0 {
-        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8) 
-    }
-    
-    return .zero
-}
-
+// MARK: - UICollectionViewDelegateFlowLayout
 extension SearchViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//           let width = indexPath.section == 0 ? firstSectionWidth 233 : 328
-//           let height = indexPath.section == 0 ? 120 : 233
-                if indexPath.section == 0  {
-                    return CGSize(width: 132, height: 120) // Размеры для первой ячейки первой секции
-                } else {
-                    return CGSize(width: 50, height: 50) // Размеры для остальных ячеек
-                }
+        if indexPath.section == 0  {
+            return CGSize(width: 500, height: 120)
+        } else {
+            if (viewModel.vacancies[indexPath.row].salary?.short) != nil {
+                return CGSize(width: collectionView.frame.width, height: 300)
+            } else {
+                return CGSize(width: collectionView.frame.width, height: 286)
             }
+        }
+    }
     
-
-
-
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if section == 0 {
+            return UIEdgeInsets(top: 0, left: 0, bottom: 13, right: 0)
+        } else {
+            return UIEdgeInsets(top: 13, left: 0, bottom: 5, right: 0)
+        }
+    }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//            return section == 0 ? 8 : 16
-//        }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForItemAt indexPath: IndexPath) -> UIEdgeInsets {
+        if indexPath.section == 0 {
+            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 5)
+        } else {
+            return UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
+        }
+    }
 }

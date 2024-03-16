@@ -9,17 +9,28 @@ import UIKit
 
 protocol SearchViewModelProtocol {
     var quickFilters: [QuickFiltersModel] { get }
-    var vacancies: [VacanciesModel] { get set }
+    var vacancies: [Vacancy] { get set }
     var image: Dynamic<UIImage> { get set }
+    var numberOfVacancies: ((Int) -> Void)? { get set }
+    var reloadCollectionView: (() -> Void)? { get set }
+    var reloadCells: (() -> Void)? { get set }
     
     func getVacancies()
 }
 
 final class SearchViewModel: SearchViewModelProtocol {
+    var reloadCollectionView: (() -> Void)?
+    var reloadCells: (() -> Void)?
     var image = Dynamic(UIImage())
-    var vacancies: [VacanciesModel] = [] {
+    var numberOfVacancies: ((Int) -> ())?
+    var vacancies: [Vacancy] = [] {
         didSet {
-            print(vacancies.count)
+            DispatchQueue.main.async { [weak self] in
+                if let self{
+                    self.numberOfVacancies?(self.vacancies.count)
+                    self.reloadCollectionView?()
+                }
+            }
         }
     }
     
@@ -42,7 +53,7 @@ final class SearchViewModel: SearchViewModelProtocol {
         }
     }
     
-    private func handleResult(result: Result<[VacanciesModel], Error>) {
+    private func handleResult(result: Result<[Vacancy], Error>) {
         DispatchQueue.main.async { [weak self] in
             switch result {
             case .success(let success):

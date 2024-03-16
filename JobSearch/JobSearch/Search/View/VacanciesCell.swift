@@ -29,6 +29,8 @@ final class VacanciesCell: UICollectionViewCell {
     private lazy var selectedImageView: UIImageView = {
         let view = UIImageView()
         
+        view.image = UIImage(named: "selected")
+        
         return view
     }()
     
@@ -62,8 +64,18 @@ final class VacanciesCell: UICollectionViewCell {
         return label
     }()
     
+    private lazy var companyIconImageView: UIImageView = {
+        let view = UIImageView()
+        
+        view.image = UIImage(named: "icon")
+        
+        return view
+    }()
+    
     private lazy var experienceImageView: UIImageView = {
         let view = UIImageView()
+        
+        view.image = UIImage(named: "experience")
         
         return view
     }()
@@ -95,7 +107,7 @@ final class VacanciesCell: UICollectionViewCell {
         button.titleLabel?.font = .systemFont(ofSize: 14)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .green
-        button.layer.cornerRadius = 50
+        button.layer.cornerRadius = 10
         
         return button
     }()
@@ -112,8 +124,17 @@ final class VacanciesCell: UICollectionViewCell {
     }
     
     // MARK: - Methods
-    func set(_ dataSource: VacanciesModel) {
+    func set(_ dataSource: Vacancy) {
+        guard let lookingNumber = dataSource.lookingNumber else { return }
         
+        lookingNumberLabel.text =  "Сейчас просматривает " + String(lookingNumber) + "человек"
+        jobTitleLabel.text = dataSource.title
+        if let salary = dataSource.salary?.short {
+            salaryLabel.text = salary
+        }
+        cityAndCompanyLabel.text = dataSource.company
+        experienceLabel.text = dataSource.experience?.previewText
+        publishedDateLabel.text = dataSource.publishedDate
     }
     
     // MARK: - Private methods
@@ -124,6 +145,7 @@ final class VacanciesCell: UICollectionViewCell {
                                       jobTitleLabel,
                                       salaryLabel,
                                       cityAndCompanyLabel,
+                                      companyIconImageView,
                                       experienceImageView,
                                       experienceLabel,
                                       publishedDateLabel,
@@ -163,6 +185,10 @@ final class VacanciesCell: UICollectionViewCell {
                 make.top.equalTo(jobTitleLabel.snp.bottom).offset(10)
             }
             make.leading.equalToSuperview().inset(16)
+        }
+        
+        companyIconImageView.snp.makeConstraints { make in
+            make.leading.equalTo(cityAndCompanyLabel.snp.trailing).offset(5)
         }
         
         experienceImageView.snp.makeConstraints { make in
