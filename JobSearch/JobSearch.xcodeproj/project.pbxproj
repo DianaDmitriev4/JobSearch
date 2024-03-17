@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CEAF0B402BA6CF77003E1F36 /* VacancyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAF0B3F2BA6CF77003E1F36 /* VacancyViewController.swift */; };
+		CEAF0B442BA6D064003E1F36 /* VacancyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAF0B432BA6D064003E1F36 /* VacancyViewModel.swift */; };
 		CEFF0C522BA0B53400801A0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C512BA0B53400801A0A /* AppDelegate.swift */; };
 		CEFF0C562BA0B53400801A0A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C552BA0B53400801A0A /* LoginViewController.swift */; };
 		CEFF0C5B2BA0B53600801A0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEFF0C5A2BA0B53600801A0A /* Assets.xcassets */; };
@@ -38,6 +40,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CEAF0B3F2BA6CF77003E1F36 /* VacancyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacancyViewController.swift; sourceTree = "<group>"; };
+		CEAF0B432BA6D064003E1F36 /* VacancyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacancyViewModel.swift; sourceTree = "<group>"; };
 		CEFF0C4E2BA0B53400801A0A /* JobSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JobSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEFF0C512BA0B53400801A0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEFF0C552BA0B53400801A0A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -81,6 +85,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CEAF0B412BA6CF7D003E1F36 /* Vacancy */ = {
+			isa = PBXGroup;
+			children = (
+				CEAF0B422BA6CF87003E1F36 /* View */,
+			);
+			path = Vacancy;
+			sourceTree = "<group>";
+		};
+		CEAF0B422BA6CF87003E1F36 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CEAF0B3F2BA6CF77003E1F36 /* VacancyViewController.swift */,
+				CEAF0B452BA6D069003E1F36 /* ViewModel */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CEAF0B452BA6D069003E1F36 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CEAF0B432BA6D064003E1F36 /* VacancyViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		CEFF0C452BA0B53400801A0A = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +140,7 @@
 				CEFF0C762BA170DA00801A0A /* Bindings */,
 				CEFF0C6C2BA1577C00801A0A /* Login */,
 				CEFF0C8A2BA2AE4D00801A0A /* Search */,
+				CEAF0B412BA6CF7D003E1F36 /* Vacancy */,
 				CEFF0C662BA0B5F000801A0A /* Coordinators */,
 				CEFF0C8D2BA2BACB00801A0A /* Extension */,
 				CEFF0C5A2BA0B53600801A0A /* Assets.xcassets */,
@@ -312,6 +342,7 @@
 				CEFF0C912BA2C35D00801A0A /* UIView + Extens.swift in Sources */,
 				CEFF0C842BA1DF1100801A0A /* ContainerViewController.swift in Sources */,
 				CEFF0C972BA4883C00801A0A /* SearchViewModel.swift in Sources */,
+				CEAF0B402BA6CF77003E1F36 /* VacancyViewController.swift in Sources */,
 				CEFF0C9F2BA5701D00801A0A /* VacanciesCell.swift in Sources */,
 				CEFF0C562BA0B53400801A0A /* LoginViewController.swift in Sources */,
 				CEFF0C7A2BA18D1E00801A0A /* SearchViewController.swift in Sources */,
@@ -323,6 +354,7 @@
 				CEFF0C752BA170D500801A0A /* Dynamic.swift in Sources */,
 				CEFF0C9D2BA56FE800801A0A /* QuickFiltersCell.swift in Sources */,
 				CEFF0C522BA0B53400801A0A /* AppDelegate.swift in Sources */,
+				CEAF0B442BA6D064003E1F36 /* VacancyViewModel.swift in Sources */,
 				CEFF0C7C2BA18D4E00801A0A /* SelectedViewController.swift in Sources */,
 				CEFF0C822BA18DAC00801A0A /* ProfileViewController.swift in Sources */,
 				CEFF0C932BA35A7600801A0A /* String + Extens.swift in Sources */,

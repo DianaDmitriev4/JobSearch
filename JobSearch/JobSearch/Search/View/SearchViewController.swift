@@ -15,6 +15,12 @@ final class SearchViewController: UIViewController {
     private lazy var scrollView: UIScrollView = {
        let scroll = UIScrollView()
         
+        let width = view.frame.width
+//        let height = searchBar.intrinsicContentSize.height + quickFiltersCollectionView.frame.height + vacancyCollectionView.frame.height + moreButton.frame.height + 134
+//        scroll.contentSize = CGSize(width: width, height: 1000)
+        scroll.isScrollEnabled = true
+        scroll.alwaysBounceVertical = true
+        
         return scroll
     }()
     
@@ -80,6 +86,8 @@ final class SearchViewController: UIViewController {
         
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: collectionViewFlowLayout)
         
+        collectionView.isScrollEnabled = false
+
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = .black
@@ -96,6 +104,7 @@ final class SearchViewController: UIViewController {
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 16)
         button.layer.cornerRadius = 8
+        button.isUserInteractionEnabled = false
         
         return button
     }()
@@ -122,9 +131,9 @@ final class SearchViewController: UIViewController {
     private func setupUI() {
         registerCells()
         view.backgroundColor = .black
-//        view.addSubview(scrollView)
-//        view.addSubview(contentView)
-        view.addSubviews(views: [searchBar, settingsButton, quickFiltersCollectionView, vacancyLabel, vacancyCollectionView, moreButton])
+        view.addSubview(scrollView)
+//        scrollView.addSubview(contentView)
+        scrollView.addSubviews(views: [searchBar, settingsButton, quickFiltersCollectionView, vacancyLabel, vacancyCollectionView, moreButton])
         
         makeConstraint()
         setViewModel()
@@ -147,13 +156,13 @@ final class SearchViewController: UIViewController {
     }
     
     private func makeConstraint() {
-//        scrollView.snp.makeConstraints { make in
-//            make.top.equalTo(view.safeAreaLayoutGuide)
-//            make.leading.trailing.bottom.equalToSuperview()
-//        }
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
 //        
 //        contentView.snp.makeConstraints { make in
 //            make.edges.equalToSuperview()
+//            make.width.equalTo(scrollView.snp.width)
 //        }
         
         searchBar.snp.makeConstraints { make in
@@ -230,17 +239,26 @@ extension SearchViewController: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegate
 extension SearchViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, scrollDirectionForSectionAt section: Int) -> UICollectionView.ScrollDirection {
-        switch collectionView {
-        case quickFiltersCollectionView:
-            return .horizontal
-        case vacancyCollectionView:
-            return .vertical
-        default: break
-        }
-        return .vertical
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        navigationController?.pushViewController(VacancyViewController(), animated: true)
     }
 }
+    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, scrollDirectionForSectionAt section: Int) -> UICollectionView.ScrollDirection {
+    //        switch collectionView {
+    //        case quickFiltersCollectionView:
+    //            return .horizontal
+    //        case vacancyCollectionView:
+    //            return .vertical
+    //        default: break
+    //        }
+    //        return .vertical
+    //    }
+    //}
+    
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        vacancyCollectionView.contentOffset = scrollView.contentOffset
+//    }
+//}
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension SearchViewController: UICollectionViewDelegateFlowLayout {
@@ -248,11 +266,11 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
         if collectionView == quickFiltersCollectionView  {
             return CGSize(width: 132, height: collectionView.frame.height)
         } else {
-            if (viewModel.vacancies[indexPath.row].salary?.short) != nil {
-                return CGSize(width: collectionView.frame.width, height: 300)
-            } else {
-                return CGSize(width: collectionView.frame.width, height: 286) //TODO: - ВЫСЧИТАТЬ РАЗМЕР ЯЧЕЙКИ
-            }
+//            if (viewModel.vacancies[indexPath.row].salary?.short) != nil {
+//                return CGSize(width: collectionView.frame.width, height: 300)
+//            } else {
+                return CGSize(width: collectionView.frame.width, height: 240) //TODO: - ВЫСЧИТАТЬ РАЗМЕР ЯЧЕЙКИ
+//            }
         }
     }
     

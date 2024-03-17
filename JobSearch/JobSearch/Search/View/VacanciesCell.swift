@@ -40,7 +40,7 @@ final class VacanciesCell: UICollectionViewCell {
     private lazy var jobTitleLabel: UILabel = {
         let label = UILabel()
         
-        label.font = .systemFont(ofSize: 16)
+        label.font = .boldSystemFont(ofSize: 16)
         label.textColor = .white
         label.numberOfLines = 0
         
