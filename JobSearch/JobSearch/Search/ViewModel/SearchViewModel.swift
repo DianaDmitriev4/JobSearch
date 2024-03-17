@@ -13,20 +13,21 @@ protocol SearchViewModelProtocol {
     var image: Dynamic<UIImage> { get set }
     var numberOfVacancies: ((Int) -> Void)? { get set }
     var reloadCollectionView: (() -> Void)? { get set }
-    var reloadCells: (() -> Void)? { get set }
+    var registerCell: (() -> Void)? { get set }
     
     func getVacancies()
 }
 
 final class SearchViewModel: SearchViewModelProtocol {
     var reloadCollectionView: (() -> Void)?
-    var reloadCells: (() -> Void)?
+    var registerCell: (() -> Void)?
     var image = Dynamic(UIImage())
     var numberOfVacancies: ((Int) -> ())?
     var vacancies: [Vacancy] = [] {
         didSet {
             DispatchQueue.main.async { [weak self] in
                 if let self{
+                    self.registerCell?()
                     self.numberOfVacancies?(self.vacancies.count)
                     self.reloadCollectionView?()
                 }

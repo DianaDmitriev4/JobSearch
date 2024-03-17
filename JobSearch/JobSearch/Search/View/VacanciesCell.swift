@@ -8,6 +8,9 @@
 import UIKit
 
 final class VacanciesCell: UICollectionViewCell {
+    // MARK: - Properties
+    var viewModel: SearchViewModelProtocol?
+    
     // MARK: - GUI variables
     private lazy var container: UIView = {
         let view = UIView()
@@ -21,7 +24,7 @@ final class VacanciesCell: UICollectionViewCell {
         let label = UILabel()
         
         label.font = .systemFont(ofSize: 14)
-        label.textColor = .green
+        label.textColor = .green1
         
         return label
     }()
@@ -106,7 +109,7 @@ final class VacanciesCell: UICollectionViewCell {
         button.setTitle("Откликнуться", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .green
+        button.backgroundColor = .green1
         button.layer.cornerRadius = 10
         
         return button
@@ -125,14 +128,16 @@ final class VacanciesCell: UICollectionViewCell {
     
     // MARK: - Methods
     func set(_ dataSource: Vacancy) {
-        guard let lookingNumber = dataSource.lookingNumber else { return }
+        guard let lookingNumber = dataSource.lookingNumber,
+        let town = dataSource.address.town,
+        let company = dataSource.company else { return }
         
         lookingNumberLabel.text =  "Сейчас просматривает " + String(lookingNumber) + "человек"
         jobTitleLabel.text = dataSource.title
         if let salary = dataSource.salary?.short {
             salaryLabel.text = salary
         }
-        cityAndCompanyLabel.text = dataSource.company
+        cityAndCompanyLabel.text = "\(town)\n\(company)"
         experienceLabel.text = dataSource.experience?.previewText
         publishedDateLabel.text = dataSource.publishedDate
     }
@@ -169,8 +174,7 @@ final class VacanciesCell: UICollectionViewCell {
         
         jobTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(lookingNumberLabel.snp.bottom).offset(10)
-            make.leading.equalToSuperview().inset(16)
-            make.trailing.equalToSuperview().inset(16)
+            make.leading.trailing.equalToSuperview().inset(16)
         }
         
         salaryLabel.snp.makeConstraints { make in
@@ -190,6 +194,7 @@ final class VacanciesCell: UICollectionViewCell {
         
         companyIconImageView.snp.makeConstraints { make in
             make.leading.equalTo(cityAndCompanyLabel.snp.trailing).offset(5)
+            make.bottom.equalTo(cityAndCompanyLabel.snp.bottom)
         }
         
         experienceImageView.snp.makeConstraints { make in
@@ -198,7 +203,7 @@ final class VacanciesCell: UICollectionViewCell {
         }
         
         experienceLabel.snp.makeConstraints { make in
-            make.leading.equalTo(experienceImageView.snp.leading).offset(5)
+            make.leading.equalTo(experienceImageView.snp.trailing).offset(5)
             make.top.equalTo(cityAndCompanyLabel.snp.bottom).offset(10)
         }
         

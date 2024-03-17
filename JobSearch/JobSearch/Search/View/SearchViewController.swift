@@ -12,6 +12,18 @@ final class SearchViewController: UIViewController {
     private var viewModel: SearchViewModelProtocol
     
     // MARK: - GUI Variables
+    private lazy var scrollView: UIScrollView = {
+       let scroll = UIScrollView()
+        
+        return scroll
+    }()
+    
+    private let contentView: UIView = {
+       let view = UIView()
+        
+        return view
+    }()
+    
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         
@@ -40,6 +52,29 @@ final class SearchViewController: UIViewController {
         return button
     }()
     
+    private lazy var quickFiltersCollectionView: UICollectionView = {
+        let collectionViewFlowLayout = UICollectionViewFlowLayout()
+        collectionViewFlowLayout.scrollDirection = .horizontal
+        
+        let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: collectionViewFlowLayout)
+        
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.backgroundColor = .black
+        
+        return collectionView
+    }()
+    
+    private lazy var vacancyLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = "Вакансии для вас"
+        label.font = .boldSystemFont(ofSize: 20)
+        label.textColor = .white
+        
+        return label
+    }()
+    
     private lazy var vacancyCollectionView: UICollectionView = {
         let collectionViewFlowLayout = UICollectionViewFlowLayout()
         
@@ -48,6 +83,7 @@ final class SearchViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = .black
+
         
         return collectionView
     }()
@@ -84,13 +120,19 @@ final class SearchViewController: UIViewController {
     
     // MARK: - Private methods
     private func setupUI() {
-        vacancyCollectionView.register(QuickFiltersCell.self, forCellWithReuseIdentifier: "QuickFiltersCell")
-        vacancyCollectionView.register(VacanciesCell.self, forCellWithReuseIdentifier: "VacanciesCell")
+        registerCells()
         view.backgroundColor = .black
-        view.addSubviews(views: [searchBar, settingsButton, vacancyCollectionView, moreButton])
+//        view.addSubview(scrollView)
+//        view.addSubview(contentView)
+        view.addSubviews(views: [searchBar, settingsButton, quickFiltersCollectionView, vacancyLabel, vacancyCollectionView, moreButton])
         
         makeConstraint()
         setViewModel()
+    }
+    
+    private func registerCells() {
+        quickFiltersCollectionView.register(QuickFiltersCell.self, forCellWithReuseIdentifier: "QuickFiltersCell")
+        vacancyCollectionView.register(VacanciesCell.self, forCellWithReuseIdentifier: "VacanciesCell")
     }
     
     private func setViewModel() {
@@ -105,6 +147,15 @@ final class SearchViewController: UIViewController {
     }
     
     private func makeConstraint() {
+//        scrollView.snp.makeConstraints { make in
+//            make.top.equalTo(view.safeAreaLayoutGuide)
+//            make.leading.trailing.bottom.equalToSuperview()
+//        }
+//        
+//        contentView.snp.makeConstraints { make in
+//            make.edges.equalToSuperview()
+//        }
+        
         searchBar.snp.makeConstraints { make in
             make.height.equalTo(40)
             make.width.equalTo(300)
@@ -118,8 +169,19 @@ final class SearchViewController: UIViewController {
             make.top.equalToSuperview().inset(48)
         }
         
-        vacancyCollectionView.snp.makeConstraints { make in
+        quickFiltersCollectionView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(16)
             make.top.equalTo(searchBar.snp.bottom).offset(33)
+            make.height.equalTo(130)
+        }
+        
+        vacancyLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(16)
+            make.top.equalTo(quickFiltersCollectionView.snp.bottom).offset(15)
+        }
+        
+        vacancyCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(vacancyLabel.snp.bottom).offset(15)
             make.leading.trailing.equalToSuperview().inset(16)
             make.bottom.equalTo(moreButton.snp.top).offset(23)
         }
@@ -136,11 +198,11 @@ final class SearchViewController: UIViewController {
 // MARK: - UICollectionViewDataSource
 extension SearchViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        2
+        1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 0 {
+        if collectionView == quickFiltersCollectionView {
             return viewModel.quickFilters.count
         } else {
             let firstThree = viewModel.vacancies.prefix(3)
@@ -149,15 +211,17 @@ extension SearchViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.section == 0 {
-            guard let quickFiltersCell = collectionView.dequeueReusableCell(withReuseIdentifier: "QuickFiltersCell", for: indexPath)
-                    as? QuickFiltersCell else { return UICollectionViewCell() }
+        if collectionView == quickFiltersCollectionView {
+            guard let quickFiltersCell = collectionView.dequeueReusableCell(withReuseIdentifier: "QuickFiltersCell",
+                                                                            for: indexPath) as? QuickFiltersCell else { return UICollectionViewCell() }
             quickFiltersCell.set(viewModel.quickFilters[indexPath.row])
+            
             return quickFiltersCell
         } else {
-            guard let vacanciesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "VacanciesCell", for: indexPath)
-                    as? VacanciesCell else { return UICollectionViewCell() }
+            guard let vacanciesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "VacanciesCell", 
+                                                                         for: indexPath) as? VacanciesCell else { return UICollectionViewCell() }
             vacanciesCell.set(viewModel.vacancies[indexPath.row])
+            vacanciesCell.viewModel = viewModel
             
             return vacanciesCell
         }
@@ -167,30 +231,33 @@ extension SearchViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 extension SearchViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, scrollDirectionForSectionAt section: Int) -> UICollectionView.ScrollDirection {
-        if section == 0 {
+        switch collectionView {
+        case quickFiltersCollectionView:
             return .horizontal
-        } else {
+        case vacancyCollectionView:
             return .vertical
+        default: break
         }
+        return .vertical
     }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension SearchViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if indexPath.section == 0  {
-            return CGSize(width: 500, height: 120)
+        if collectionView == quickFiltersCollectionView  {
+            return CGSize(width: 132, height: collectionView.frame.height)
         } else {
             if (viewModel.vacancies[indexPath.row].salary?.short) != nil {
                 return CGSize(width: collectionView.frame.width, height: 300)
             } else {
-                return CGSize(width: collectionView.frame.width, height: 286)
+                return CGSize(width: collectionView.frame.width, height: 286) //TODO: - ВЫСЧИТАТЬ РАЗМЕР ЯЧЕЙКИ
             }
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        if section == 0 {
+        if collectionView == quickFiltersCollectionView  {
             return UIEdgeInsets(top: 0, left: 0, bottom: 13, right: 0)
         } else {
             return UIEdgeInsets(top: 13, left: 0, bottom: 5, right: 0)
@@ -198,8 +265,8 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForItemAt indexPath: IndexPath) -> UIEdgeInsets {
-        if indexPath.section == 0 {
-            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 5)
+        if collectionView == quickFiltersCollectionView {
+            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)
         } else {
             return UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
         }
