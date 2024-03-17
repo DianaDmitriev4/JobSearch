@@ -19,7 +19,6 @@ struct Offer: Codable  {
 
 // MARK: - Vacancy
 struct Vacancy: Codable  {
-//    let id: String?
     let lookingNumber: Int?
     let title: String?
     let address: Address

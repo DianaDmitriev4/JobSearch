@@ -26,7 +26,7 @@ final class SearchViewModel: SearchViewModelProtocol {
     var vacancies: [Vacancy] = [] {
         didSet {
             DispatchQueue.main.async { [weak self] in
-                if let self{
+                if let self {
                     self.registerCell?()
                     self.numberOfVacancies?(self.vacancies.count)
                     self.reloadCollectionView?()

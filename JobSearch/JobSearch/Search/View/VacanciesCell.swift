@@ -14,7 +14,7 @@ final class VacanciesCell: UICollectionViewCell {
     // MARK: - GUI variables
     private lazy var container: UIView = {
         let view = UIView()
-        view.backgroundColor = .gray1
+        view.backgroundColor = .grey1
         view.layer.cornerRadius = 8
         
         return view

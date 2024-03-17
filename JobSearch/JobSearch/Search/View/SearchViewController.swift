@@ -41,8 +41,8 @@ final class SearchViewController: UIViewController {
         
         searchBar.searchTextField.font = UIFont.systemFont(ofSize: 14)
         searchBar.searchTextField.attributedPlaceholder = NSAttributedString(string: "Должность, ключевые слова",
-                                                                             attributes: [.foregroundColor: UIColor.gray4])
-        searchBar.searchTextField.backgroundColor = .gray2
+                                                                             attributes: [.foregroundColor: UIColor.grey4])
+        searchBar.searchTextField.backgroundColor = .grey2
         searchBar.searchTextField.layer.cornerRadius = 8
         
         return searchBar
@@ -53,7 +53,7 @@ final class SearchViewController: UIViewController {
         
         button.layer.cornerRadius = 10
         button.setImage(UIImage(named: "settings"), for: .normal)
-        button.backgroundColor = .gray2
+        button.backgroundColor = .grey2
         
         return button
     }()
@@ -274,19 +274,19 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        if collectionView == quickFiltersCollectionView  {
-            return UIEdgeInsets(top: 0, left: 0, bottom: 13, right: 0)
-        } else {
-            return UIEdgeInsets(top: 13, left: 0, bottom: 5, right: 0)
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForItemAt indexPath: IndexPath) -> UIEdgeInsets {
-        if collectionView == quickFiltersCollectionView {
-            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)
-        } else {
-            return UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
-        }
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//        if collectionView == quickFiltersCollectionView  {
+//            return UIEdgeInsets(top: 0, left: 0, bottom: 13, right: 0)
+//        } else {
+//            return UIEdgeInsets(top: 13, left: 0, bottom: 5, right: 0)
+//        }
+//    }
+//    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForItemAt indexPath: IndexPath) -> UIEdgeInsets {
+//        if collectionView == quickFiltersCollectionView {
+//            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)
+//        } else {
+//            return UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
+//        }
+//    }
 }

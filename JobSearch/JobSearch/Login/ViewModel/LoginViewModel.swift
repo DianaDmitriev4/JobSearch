@@ -25,7 +25,7 @@ final class LoginViewModel: LoginViewModelProtocol {
     
     var email = ""
     var buttonColor = Dynamic(UIColor.darkBlue)
-    var textColor = Dynamic(UIColor.gray4)
+    var textColor = Dynamic(UIColor.grey4)
     var descriptionText = Dynamic("")
     var borderColor = Dynamic(UIColor.clear)
     
@@ -52,7 +52,7 @@ final class LoginViewModel: LoginViewModelProtocol {
         } else {
             button.isUserInteractionEnabled = false
             buttonColor.value = UIColor.darkBlue
-            textColor.value = UIColor.gray4
+            textColor.value = UIColor.grey4
         }
     }
     
