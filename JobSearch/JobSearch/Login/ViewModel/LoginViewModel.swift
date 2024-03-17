@@ -59,7 +59,7 @@ final class LoginViewModel: LoginViewModelProtocol {
     func changeColorAndCheckFullness(textFields: [UITextField], button: UIButton) -> Bool {
         for textField in textFields {
             guard let text = textField.text,
-                    !text.isEmpty else { return false }
+                  !text.isEmpty else { return false }
         }
         buttonColor.value = UIColor.systemBlue
         textColor.value = UIColor.white
