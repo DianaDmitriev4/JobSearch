@@ -139,10 +139,21 @@ final class VacanciesCell: UICollectionViewCell {
         }
         cityAndCompanyLabel.text = "\(town)\n\(company)"
         experienceLabel.text = dataSource.experience?.previewText
-        publishedDateLabel.text = dataSource.publishedDate
+        publishedDateLabel.text = formatDate(from: dataSource.publishedDate ?? "")
     }
     
     // MARK: - Private methods
+    private func formatDate(from dateString: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        guard let date = dateFormatter.date(from: dateString) else { return "" }
+        dateFormatter.dateFormat = "dd MMMM"
+        dateFormatter.locale = Locale(identifier: "ru_RU")
+        
+        return dateFormatter.string(from: date)
+    }
+    
     private func setupUI() {
         addSubview(container)
         container.addSubviews(views: [lookingNumberLabel,
@@ -173,7 +184,7 @@ final class VacanciesCell: UICollectionViewCell {
         }
         
         jobTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(lookingNumberLabel.snp.bottom).offset(10)
+            make.top.equalToSuperview().inset(43)
             make.leading.trailing.equalToSuperview().inset(16)
         }
         
@@ -213,7 +224,7 @@ final class VacanciesCell: UICollectionViewCell {
         }
         
         applyJobButton.snp.makeConstraints { make in
-            make.top.equalTo(publishedDateLabel)
+            make.top.equalTo(publishedDateLabel.snp.bottom).offset(10)
             make.leading.equalToSuperview().inset(16)
             make.height.equalTo(32)
             make.width.equalTo(296)

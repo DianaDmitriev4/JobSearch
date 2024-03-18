@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CEAF0B402BA6CF77003E1F36 /* VacancyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAF0B3F2BA6CF77003E1F36 /* VacancyViewController.swift */; };
 		CEAF0B442BA6D064003E1F36 /* VacancyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAF0B432BA6D064003E1F36 /* VacancyViewModel.swift */; };
+		CEAF0B4A2BA84357003E1F36 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CEAF0B482BA84357003E1F36 /* Model.xcdatamodeld */; };
 		CEFF0C522BA0B53400801A0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C512BA0B53400801A0A /* AppDelegate.swift */; };
 		CEFF0C562BA0B53400801A0A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C552BA0B53400801A0A /* LoginViewController.swift */; };
 		CEFF0C5B2BA0B53600801A0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEFF0C5A2BA0B53600801A0A /* Assets.xcassets */; };
@@ -42,6 +43,7 @@
 /* Begin PBXFileReference section */
 		CEAF0B3F2BA6CF77003E1F36 /* VacancyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacancyViewController.swift; sourceTree = "<group>"; };
 		CEAF0B432BA6D064003E1F36 /* VacancyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacancyViewModel.swift; sourceTree = "<group>"; };
+		CEAF0B492BA84357003E1F36 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		CEFF0C4E2BA0B53400801A0A /* JobSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JobSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEFF0C512BA0B53400801A0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEFF0C552BA0B53400801A0A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -110,6 +112,30 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		CEAF0B462BA82347003E1F36 /* Selected */ = {
+			isa = PBXGroup;
+			children = (
+				CEAF0B472BA82352003E1F36 /* View */,
+			);
+			path = Selected;
+			sourceTree = "<group>";
+		};
+		CEAF0B472BA82352003E1F36 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CEFF0C7B2BA18D4E00801A0A /* SelectedViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CEAF0B4B2BA8435D003E1F36 /* Core data */ = {
+			isa = PBXGroup;
+			children = (
+				CEAF0B482BA84357003E1F36 /* Model.xcdatamodeld */,
+			);
+			path = "Core data";
+			sourceTree = "<group>";
+		};
 		CEFF0C452BA0B53400801A0A = {
 			isa = PBXGroup;
 			children = (
@@ -130,10 +156,10 @@
 			isa = PBXGroup;
 			children = (
 				CEFF0C512BA0B53400801A0A /* AppDelegate.swift */,
+				CEAF0B4B2BA8435D003E1F36 /* Core data */,
 				CEFF0C772BA185A600801A0A /* TabBarController.swift */,
 				CEFF0CA42BA5C8AF00801A0A /* Networking */,
 				CEFF0C832BA1DF1100801A0A /* ContainerViewController.swift */,
-				CEFF0C7B2BA18D4E00801A0A /* SelectedViewController.swift */,
 				CEFF0C7D2BA18D7600801A0A /* ResponsesViewController.swift */,
 				CEFF0C7F2BA18D8E00801A0A /* MessagesViewController.swift */,
 				CEFF0C812BA18DAC00801A0A /* ProfileViewController.swift */,
@@ -141,6 +167,7 @@
 				CEFF0C6C2BA1577C00801A0A /* Login */,
 				CEFF0C8A2BA2AE4D00801A0A /* Search */,
 				CEAF0B412BA6CF7D003E1F36 /* Vacancy */,
+				CEAF0B462BA82347003E1F36 /* Selected */,
 				CEFF0C662BA0B5F000801A0A /* Coordinators */,
 				CEFF0C8D2BA2BACB00801A0A /* Extension */,
 				CEFF0C5A2BA0B53600801A0A /* Assets.xcassets */,
@@ -339,6 +366,7 @@
 				CEFF0C8C2BA2BAC500801A0A /* UIColor + Extens.swift in Sources */,
 				CEFF0C952BA4167900801A0A /* CodeViewController.swift in Sources */,
 				CEFF0C6B2BA0B67A00801A0A /* AppCoordinator.swift in Sources */,
+				CEAF0B4A2BA84357003E1F36 /* Model.xcdatamodeld in Sources */,
 				CEFF0C912BA2C35D00801A0A /* UIView + Extens.swift in Sources */,
 				CEFF0C842BA1DF1100801A0A /* ContainerViewController.swift in Sources */,
 				CEFF0C972BA4883C00801A0A /* SearchViewModel.swift in Sources */,
@@ -594,6 +622,19 @@
 			productName = "SnapKit-Dynamic";
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		CEAF0B482BA84357003E1F36 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				CEAF0B492BA84357003E1F36 /* Model.xcdatamodel */,
+			);
+			currentVersion = CEAF0B492BA84357003E1F36 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = CEFF0C462BA0B53400801A0A /* Project object */;
 }

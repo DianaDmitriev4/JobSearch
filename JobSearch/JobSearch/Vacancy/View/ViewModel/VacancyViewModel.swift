@@ -18,7 +18,7 @@ final class VacancyViewModel {
     let salary: SalaryViewModel?
     let schedules: [String]
     let appliedNumber: Int?
-    let vacancyDescription: String?
+    let description: String?
     let responsibilities: String?
     let questions: [String]?
     
@@ -33,7 +33,7 @@ final class VacancyViewModel {
         self.salary = SalaryViewModel(full: dataSource.salary?.full, short: dataSource.salary?.short)
         self.schedules = dataSource.schedules.compactMap { $0 }
         self.appliedNumber = dataSource.appliedNumber
-        self.vacancyDescription = dataSource.vacancyDescription
+        self.description = dataSource.description
         self.responsibilities = dataSource.responsibilities
         self.questions = dataSource.questions?.compactMap { $0 }
     }

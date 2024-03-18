@@ -13,13 +13,16 @@ final class VacancyViewController: UIViewController {
     
     // MARK: - GUI variables
     private lazy var scrollView: UIScrollView = {
-    let scroll = UIScrollView()
+        let scroll = UIScrollView()
+        
+        scroll.isScrollEnabled = true
+        scroll.alwaysBounceVertical = true
         
         return scroll
     }()
     
     private lazy var contentView: UIView = {
-       let view = UIView()
+        let view = UIView()
         
         return view
     }()
@@ -56,13 +59,13 @@ final class VacancyViewController: UIViewController {
     private lazy var containerView: UIView = {
         let view = UIView()
         
-        view.backgroundColor = .grey3
+        view.backgroundColor = .grey1
         view.layer.cornerRadius = 8
         
         return view
     }()
     
-    private lazy var companyLabel = makeLabel(font: .systemFont(ofSize: 14))
+    private lazy var companyLabel = makeLabel(font: .boldSystemFont(ofSize: 14))
     private lazy var companyIconImageView = makeImageView(name: "icon")
     private lazy var mapImageView = makeImageView(name: "map")
     private lazy var addressLabel = makeLabel(font: .systemFont(ofSize: 14))
@@ -80,10 +83,11 @@ final class VacancyViewController: UIViewController {
         return label
     }()
     
-    private lazy var firstButton = makeButton()
-    private lazy var secondButton = makeButton()
-    private lazy var thirdButton = makeButton()
-    private lazy var fourthButton = makeButton()
+    private lazy var firstButton = makeButton(color: .grey2, titleSize: 14)
+    private lazy var secondButton = makeButton(color: .grey2, titleSize: 14)
+    private lazy var thirdButton = makeButton(color: .grey2, titleSize: 14)
+    private lazy var fourthButton = makeButton(color: .grey2, titleSize: 14)
+    private lazy var applyButton = makeButton(color: .systemGreen, titleSize: 16)
     
     //MARK: - Life cycle
     override func viewDidLoad() {
@@ -108,31 +112,91 @@ final class VacancyViewController: UIViewController {
     }
     
     private func setData() {
+        titleLabel.text = viewModel.title
+        salaryLabel.text = viewModel.salary?.full
+        experienceLabel.text = "Требуемый опыт: " + (viewModel.experience?.text ?? "")
         
+        var schedulesArray = viewModel.schedules
+        schedulesArray[0] = schedulesArray[0].capitalized
+        let stringForSchedules = schedulesArray.map { $0 }.joined(separator: ", ")
+        schedulesLabel.text = stringForSchedules
+        
+        if let appliedNumber = viewModel.appliedNumber {
+            switch appliedNumber {
+            case 1:
+                appliedNumberLabel.text = String(appliedNumber) + " человек откликнулcя"
+            case 2...4:
+                appliedNumberLabel.text = String(appliedNumber) + " человека откликнулось"
+            default:
+                appliedNumberLabel.text = String(appliedNumber) + " человек откликнулось"
+            }
+        }
+        
+        if let lookingNumber = viewModel.lookingNumber {
+            switch lookingNumber {
+            case 1:
+                lookingNumberLabel.text = String(lookingNumber) + " человек откликнулcя"
+            case 2...4:
+                lookingNumberLabel.text = String(lookingNumber) + " человека откликнулось"
+            default:
+                lookingNumberLabel.text = String(lookingNumber) + " человек откликнулось"
+            }
+        }
+        
+        companyLabel.text = viewModel.company
+        if let town = viewModel.address.town,
+           let street = viewModel.address.street,
+           let house = viewModel.address.house {
+            addressLabel.text = "\(town), \(street), \(house)"
+        }
+        
+        descriptionLabel.text = viewModel.description
+        taskLabel.text = "Ваши задачи"
+        
+                taskDescriptionLabel.text = viewModel.responsibilities // NEEDS TO CHANGE
+
+        questionLabel.text = "Задайте вопрос работодателю"
+        questionGrayLabel.text = "Он получит его с откликом на вакансию"
+        
+        let buttonsQuestion = [firstButton, secondButton, thirdButton, fourthButton]
+        if let questions = viewModel.questions {
+            buttonsQuestion.enumerated().forEach { index, button in
+                if index < questions.count {
+                    button.setTitle(questions[index], for: .normal)
+                } else {
+                    button.isHidden = true
+                }
+            }
+        }
+        
+        applyButton.setTitle("Откликнуться", for: .normal)
     }
+    
     private func makeLabel(font: UIFont) -> UILabel {
         let label = UILabel()
         
         label.font = font
         label.textColor = .white
+        label.numberOfLines = 0
         
         return label
     }
     
-    private func makeButton() -> UIButton {
+    private func makeButton(color: UIColor, titleSize: CGFloat) -> UIButton {
         let button = UIButton()
         
-        button.backgroundColor = .grey2
+        button.backgroundColor = color
         button.layer.cornerRadius = 15
-        //        button.setTitle(title, for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .boldSystemFont(ofSize: 14)
+        button.titleLabel?.font = .boldSystemFont(ofSize: titleSize)
+        button.configuration = .borderless()
         
         return button
     }
     
     private func makeImageView(name: String) -> UIImageView {
         let imageView = UIImageView()
+        
         imageView.image = UIImage(named: name)
         
         return imageView
@@ -142,27 +206,36 @@ final class VacancyViewController: UIViewController {
         let backButton = UIBarButtonItem(image: UIImage(named: "back"), style: .plain, target: self, action: #selector(backButtonTapped))
         backButton.tintColor = .white
         navigationItem.leftBarButtonItem = backButton
+        
+        let firstIcon = UIBarButtonItem(image: UIImage(named: "eye"), style: .plain, target: nil, action: nil)
+        let secondIcon = UIBarButtonItem(image: UIImage(named: "icon2"), style: .plain, target: nil, action: nil)
+        let thirdIcon = UIBarButtonItem(image: UIImage(named: "selected"), style: .plain, target: nil, action: nil)
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        navigationItem.rightBarButtonItems = [firstIcon, flexibleSpace, secondIcon, flexibleSpace, thirdIcon].reversed()
+
+        
     }
     
     private func setupUI() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubviews(views: [titleLabel,
-                                 salaryLabel,
-                                 experienceLabel,
-                                 schedulesLabel,
-                                 appliedNumberView,
-                                 lookingNumberView,
-                                 containerView,
-                                 descriptionLabel,
-                                 taskLabel,
-                                 taskDescriptionLabel,
-                                 questionLabel,
-                                 questionGrayLabel,
-                                       firstButton,
-                                       secondButton,
-                                       thirdButton,
-                                       fourthButton])
+                                        salaryLabel,
+                                        experienceLabel,
+                                        schedulesLabel,
+                                        appliedNumberView,
+                                        lookingNumberView,
+                                        containerView,
+                                        descriptionLabel,
+                                        taskLabel,
+                                        taskDescriptionLabel,
+                                        questionLabel,
+                                        questionGrayLabel,
+                                        firstButton,
+                                        secondButton,
+                                        thirdButton,
+                                        fourthButton,
+                                        applyButton])
         appliedNumberView.addSubviews(views: [appliedNumberLabel, appliedNumberImageView])
         lookingNumberView.addSubviews(views: [lookingNumberLabel, lookingNumberImageView])
         containerView.addSubviews(views: [companyLabel, companyIconImageView, mapImageView, addressLabel])
@@ -182,8 +255,8 @@ final class VacancyViewController: UIViewController {
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(100)
-            make.leading.equalToSuperview().inset(16)
+            make.top.equalToSuperview().inset(30)
+            make.leading.trailing.equalToSuperview().inset(16)
         }
         
         salaryLabel.snp.makeConstraints { make in
@@ -210,6 +283,7 @@ final class VacancyViewController: UIViewController {
         
         appliedNumberLabel.snp.makeConstraints { make in
             make.leading.top.equalToSuperview().inset(8)
+            make.trailing.equalTo(appliedNumberImageView.snp.leading).offset(8)
         }
         
         appliedNumberImageView.snp.makeConstraints { make in
@@ -218,13 +292,14 @@ final class VacancyViewController: UIViewController {
         
         lookingNumberView.snp.makeConstraints { make in
             make.leading.equalTo(appliedNumberView.snp.trailing).offset(8)
-            make.centerY.equalTo(appliedNumberView.snp.centerY)  //MAYBE
+            make.centerY.equalTo(appliedNumberView.snp.centerY)
             make.width.equalTo(160)
             make.height.equalTo(50)
         }
         
         lookingNumberLabel.snp.makeConstraints { make in
             make.top.leading.equalToSuperview().inset(8)
+            make.trailing.equalTo(lookingNumberImageView.snp.leading).offset(8)
         }
         
         lookingNumberImageView.snp.makeConstraints { make in
@@ -233,7 +308,7 @@ final class VacancyViewController: UIViewController {
         
         containerView.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(16)
-            make.top.equalToSuperview().inset(313)
+            make.top.equalTo(lookingNumberView.snp.bottom).offset(24)
             make.height.equalTo(134)
             make.width.equalTo(328)
         }
@@ -245,7 +320,7 @@ final class VacancyViewController: UIViewController {
         
         companyIconImageView.snp.makeConstraints { make in
             make.leading.equalTo(companyLabel.snp.trailing).offset(8)
-            make.centerY.equalTo(companyLabel.snp.centerY)  // MAYBE
+            make.centerY.equalTo(companyLabel.snp.centerY)
         }
         
         mapImageView.snp.makeConstraints { make in
@@ -259,7 +334,7 @@ final class VacancyViewController: UIViewController {
         }
         
         descriptionLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(16)
+            make.leading.trailing.equalToSuperview().inset(16)
             make.top.equalTo(containerView.snp.bottom).offset(16)
         }
         
@@ -269,7 +344,7 @@ final class VacancyViewController: UIViewController {
         }
         
         taskDescriptionLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(16)
+            make.trailing.leading.equalToSuperview().inset(16)
             make.top.equalTo(taskLabel.snp.bottom).offset(16)
         }
         
@@ -279,18 +354,36 @@ final class VacancyViewController: UIViewController {
         }
         
         questionGrayLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(16)
+            make.leading.trailing.equalToSuperview().inset(16)
             make.top.equalTo(questionLabel.snp.bottom).offset(16)
         }
         
-        let buttons = [firstButton, secondButton, thirdButton, fourthButton]
-        for i in 0..<buttons.count {
-            buttons[i].snp.makeConstraints { make in
-                make.height.equalTo(33)
-                if i > 0 {
-                    make.top.equalTo(buttons[i - 1].snp.trailing).offset(10)
-                }
-            }
+        firstButton.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(16)
+            make.top.equalTo(questionGrayLabel.snp.bottom).offset(16)
+        }
+        
+        secondButton.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(16)
+            make.top.equalTo(firstButton.snp.bottom).offset(8)
+        }
+        
+        thirdButton.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(16)
+            make.top.equalTo(secondButton.snp.bottom).offset(8)
+        }
+        
+        fourthButton.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(16)
+            make.top.equalTo(thirdButton.snp.bottom).offset(8)
+        }
+        
+        applyButton.snp.makeConstraints { make in
+            make.top.equalTo(fourthButton.snp.bottom).offset(16)
+            make.leading.equalToSuperview().inset(16)
+            make.width.equalTo(330)
+            make.height.equalTo(48)
+            make.bottom.equalToSuperview().inset(16)
         }
     }
 }

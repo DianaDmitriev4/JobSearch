@@ -86,7 +86,7 @@ final class SearchViewController: UIViewController {
         
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: collectionViewFlowLayout)
         
-        collectionView.isScrollEnabled = false
+//        collectionView.isScrollEnabled = false
 
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -129,12 +129,15 @@ final class SearchViewController: UIViewController {
     
     // MARK: - Private methods
     private func setupUI() {
-        registerCells()
+        navigationController?.navigationBar.barTintColor = .black
+        tabBarController?.tabBar.barTintColor = .black
         view.backgroundColor = .black
-        view.addSubview(scrollView)
-//        scrollView.addSubview(contentView)
-        scrollView.addSubviews(views: [searchBar, settingsButton, quickFiltersCollectionView, vacancyLabel, vacancyCollectionView, moreButton])
         
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubviews(views: [searchBar, settingsButton, quickFiltersCollectionView, vacancyLabel, vacancyCollectionView, moreButton])
+        
+        registerCells()
         makeConstraint()
         setViewModel()
     }
@@ -158,24 +161,30 @@ final class SearchViewController: UIViewController {
     private func makeConstraint() {
         scrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+            make.height.equalTo(1000)
+//            make.top.leading.trailing.equalToSuperview()
+//            make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
-//        
-//        contentView.snp.makeConstraints { make in
-//            make.edges.equalToSuperview()
-//            make.width.equalTo(scrollView.snp.width)
-//        }
+        
+        contentView.snp.makeConstraints { make in
+//            make.top.leading.trailing.equalToSuperview()
+//            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.edges.equalToSuperview()
+            make.height.equalTo(1000)
+            make.width.equalTo(scrollView.snp.width)
+        }
         
         searchBar.snp.makeConstraints { make in
             make.height.equalTo(40)
             make.width.equalTo(300)
-            make.top.equalToSuperview().inset(48)
+            make.top.equalToSuperview().inset(24)
             make.leading.equalToSuperview().inset(17)
         }
         
         settingsButton.snp.makeConstraints { make in
             make.width.height.equalTo(40)
             make.leading.equalTo(searchBar.snp.trailing).offset(3)
-            make.top.equalToSuperview().inset(48)
+            make.centerY.equalTo(searchBar.snp.centerY)
         }
         
         quickFiltersCollectionView.snp.makeConstraints { make in
@@ -192,14 +201,14 @@ final class SearchViewController: UIViewController {
         vacancyCollectionView.snp.makeConstraints { make in
             make.top.equalTo(vacancyLabel.snp.bottom).offset(15)
             make.leading.trailing.equalToSuperview().inset(16)
-            make.bottom.equalTo(moreButton.snp.top).offset(23)
+            make.bottom.equalToSuperview().inset(71)
         }
         
         moreButton.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
             make.height.equalTo(48)
             make.width.equalTo(330)
-            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(10)
+            make.bottom.equalToSuperview()
         }
     }
 }
@@ -214,8 +223,9 @@ extension SearchViewController: UICollectionViewDataSource {
         if collectionView == quickFiltersCollectionView {
             return viewModel.quickFilters.count
         } else {
-            let firstThree = viewModel.vacancies.prefix(3)
-            return firstThree.count
+//            let firstThree = viewModel.vacancies.prefix(3)
+//            return firstThree.count
+            return viewModel.vacancies.count
         }
     }
     
@@ -240,25 +250,12 @@ extension SearchViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 extension SearchViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        navigationController?.pushViewController(VacancyViewController(), animated: true)
+        if collectionView == vacancyCollectionView {
+            let vacancy = viewModel.vacancies[indexPath.row]
+            navigationController?.pushViewController(VacancyViewController(viewModel: VacancyViewModel(vacancy)), animated: true)
+        }
     }
 }
-    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, scrollDirectionForSectionAt section: Int) -> UICollectionView.ScrollDirection {
-    //        switch collectionView {
-    //        case quickFiltersCollectionView:
-    //            return .horizontal
-    //        case vacancyCollectionView:
-    //            return .vertical
-    //        default: break
-    //        }
-    //        return .vertical
-    //    }
-    //}
-    
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        vacancyCollectionView.contentOffset = scrollView.contentOffset
-//    }
-//}
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension SearchViewController: UICollectionViewDelegateFlowLayout {
@@ -266,27 +263,7 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
         if collectionView == quickFiltersCollectionView  {
             return CGSize(width: 132, height: collectionView.frame.height)
         } else {
-//            if (viewModel.vacancies[indexPath.row].salary?.short) != nil {
-//                return CGSize(width: collectionView.frame.width, height: 300)
-//            } else {
                 return CGSize(width: collectionView.frame.width, height: 240) //TODO: - ВЫСЧИТАТЬ РАЗМЕР ЯЧЕЙКИ
-//            }
         }
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//        if collectionView == quickFiltersCollectionView  {
-//            return UIEdgeInsets(top: 0, left: 0, bottom: 13, right: 0)
-//        } else {
-//            return UIEdgeInsets(top: 13, left: 0, bottom: 5, right: 0)
-//        }
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForItemAt indexPath: IndexPath) -> UIEdgeInsets {
-//        if collectionView == quickFiltersCollectionView {
-//            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)
-//        } else {
-//            return UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
-//        }
-//    }
 }

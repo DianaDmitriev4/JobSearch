@@ -10,24 +10,19 @@ import UIKit
 protocol SearchViewModelProtocol {
     var quickFilters: [QuickFiltersModel] { get }
     var vacancies: [Vacancy] { get set }
-    var image: Dynamic<UIImage> { get set }
     var numberOfVacancies: ((Int) -> Void)? { get set }
     var reloadCollectionView: (() -> Void)? { get set }
-    var registerCell: (() -> Void)? { get set }
     
     func getVacancies()
 }
 
 final class SearchViewModel: SearchViewModelProtocol {
     var reloadCollectionView: (() -> Void)?
-    var registerCell: (() -> Void)?
-    var image = Dynamic(UIImage())
-    var numberOfVacancies: ((Int) -> ())?
+    var numberOfVacancies: ((Int) -> Void)?
     var vacancies: [Vacancy] = [] {
         didSet {
             DispatchQueue.main.async { [weak self] in
                 if let self {
-                    self.registerCell?()
                     self.numberOfVacancies?(self.vacancies.count)
                     self.reloadCollectionView?()
                 }
@@ -60,7 +55,7 @@ final class SearchViewModel: SearchViewModelProtocol {
             case .success(let success):
                 self?.vacancies = success
             case .failure(let failure):
-                print(failure.localizedDescription) // MAYBE MAKE ALERT WITH SHOW DESCRIPTION
+                print(failure.localizedDescription)
             }
         }
     }
