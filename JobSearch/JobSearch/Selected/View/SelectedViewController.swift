@@ -29,7 +29,7 @@ final class SelectedViewController: UIViewController {
         return label
     }()
     
-    private lazy var collectionView: UICollectionView = {
+    private lazy var vacanciesCollectionView: UICollectionView = {
         let collectionViewFlowLayout = UICollectionViewFlowLayout()
         
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: collectionViewFlowLayout)
@@ -49,9 +49,27 @@ final class SelectedViewController: UIViewController {
     
     // MARK: - Private methods
     private func setupUI() {
-        collectionView.register(VacanciesCell.self, forCellWithReuseIdentifier: "VacanciesCell")
+        view.addSubviews(views: [titleLabel, countVacanciesLabel, vacanciesCollectionView])
+        vacanciesCollectionView.register(VacanciesCell.self, forCellWithReuseIdentifier: "VacanciesCell")
     }
     
+    private func makeConstraint() {
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.equalToSuperview().inset(16)
+        }
+        
+        countVacanciesLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(16)
+            make.top.equalTo(titleLabel.snp.bottom).offset(24)
+        }
+        
+        vacanciesCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(countVacanciesLabel.snp.bottom).offset(16)
+            make.leading.trailing.equalToSuperview().inset(16)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
+        }
+    }
 }
 
 // MARK: - UICollectionViewDataSource

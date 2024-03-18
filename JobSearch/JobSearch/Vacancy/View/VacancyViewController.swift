@@ -212,7 +212,7 @@ final class VacancyViewController: UIViewController {
         
         let firstIcon = UIBarButtonItem(image: UIImage(named: "eye"), style: .plain, target: nil, action: nil)
         let secondIcon = UIBarButtonItem(image: UIImage(named: "icon2"), style: .plain, target: nil, action: nil)
-        let thirdIcon = UIBarButtonItem(image: UIImage(named: "selected"), style: .plain, target: self, action: #selector(<#T##@objc method#>))
+        let thirdIcon = UIBarButtonItem(image: UIImage(named: "selected"), style: .plain, target: self, action: #selector(addOrRemoveFromFavorites))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         navigationItem.rightBarButtonItems = [firstIcon, flexibleSpace, secondIcon, flexibleSpace, thirdIcon].reversed()
     }

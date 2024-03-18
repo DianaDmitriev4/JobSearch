@@ -12,12 +12,19 @@ protocol SearchViewModelProtocol {
     var vacancies: [Vacancy] { get set }
     var numberOfVacancies: ((Int) -> Void)? { get set }
     var reloadCollectionView: (() -> Void)? { get set }
-    var favorites: [Vacancy] { get set }
+    var selectedImage: Dynamic<UIImage> { get set }
     
     func getVacancies()
 }
 
+extension SearchViewModelProtocol {
+     var favorites: [Vacancy] {
+        return []
+    }
+}
+
 final class SearchViewModel: SearchViewModelProtocol {
+    var selectedImage = Dynamic(UIImage())
     var reloadCollectionView: (() -> Void)?
     var numberOfVacancies: ((Int) -> Void)?
     var vacancies: [Vacancy] = [] {
@@ -43,13 +50,16 @@ final class SearchViewModel: SearchViewModelProtocol {
                                                                iconColor: .darkGreen,
                                                                description: "Временная работа и подработка",
                                                                textAction: nil)]
-    var favorites: [Vacancy] = []
     
     func getVacancies() {
         ApiManager.getVacancies { [weak self] result in
             self?.handleResult(result: result)
         }
     }
+    
+    func isSelected(_ vacancy: Vacancy) -> Bool {
+        favorites.contains(where: { $0.title == vacancy.title } )
+        }
     
     private func handleResult(result: Result<[Vacancy], Error>) {
         DispatchQueue.main.async { [weak self] in

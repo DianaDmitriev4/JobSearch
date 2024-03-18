@@ -13,6 +13,7 @@
 		CEAF0B4D2BA86863003E1F36 /* VacancyPersistent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAF0B4C2BA86863003E1F36 /* VacancyPersistent.swift */; };
 		CEAF0B502BA869E5003E1F36 /* VacancyEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAF0B4E2BA869E5003E1F36 /* VacancyEntity+CoreDataClass.swift */; };
 		CEAF0B512BA869E5003E1F36 /* VacancyEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAF0B4F2BA869E5003E1F36 /* VacancyEntity+CoreDataProperties.swift */; };
+		CEAF0B542BA898D6003E1F36 /* SelectedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAF0B532BA898D6003E1F36 /* SelectedViewModel.swift */; };
 		CEFF0C522BA0B53400801A0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C512BA0B53400801A0A /* AppDelegate.swift */; };
 		CEFF0C562BA0B53400801A0A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C552BA0B53400801A0A /* LoginViewController.swift */; };
 		CEFF0C5B2BA0B53600801A0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEFF0C5A2BA0B53600801A0A /* Assets.xcassets */; };
@@ -50,6 +51,7 @@
 		CEAF0B4C2BA86863003E1F36 /* VacancyPersistent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacancyPersistent.swift; sourceTree = "<group>"; };
 		CEAF0B4E2BA869E5003E1F36 /* VacancyEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VacancyEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		CEAF0B4F2BA869E5003E1F36 /* VacancyEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VacancyEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		CEAF0B532BA898D6003E1F36 /* SelectedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedViewModel.swift; sourceTree = "<group>"; };
 		CEFF0C4E2BA0B53400801A0A /* JobSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JobSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEFF0C512BA0B53400801A0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEFF0C552BA0B53400801A0A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				CEFF0C7B2BA18D4E00801A0A /* SelectedViewController.swift */,
+				CEAF0B532BA898D6003E1F36 /* SelectedViewModel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -175,10 +178,10 @@
 			isa = PBXGroup;
 			children = (
 				CEFF0C512BA0B53400801A0A /* AppDelegate.swift */,
-				CEAF0B4B2BA8435D003E1F36 /* Core data */,
 				CEFF0C772BA185A600801A0A /* TabBarController.swift */,
-				CEFF0CA42BA5C8AF00801A0A /* Networking */,
 				CEFF0C832BA1DF1100801A0A /* ContainerViewController.swift */,
+				CEAF0B4B2BA8435D003E1F36 /* Core data */,
+				CEFF0CA42BA5C8AF00801A0A /* Networking */,
 				CEFF0C762BA170DA00801A0A /* Bindings */,
 				CEFF0C6C2BA1577C00801A0A /* Login */,
 				CEFF0C8A2BA2AE4D00801A0A /* Search */,
@@ -378,6 +381,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEAF0B542BA898D6003E1F36 /* SelectedViewModel.swift in Sources */,
 				CEFF0C9A2BA4885800801A0A /* VacanciesModel.swift in Sources */,
 				CEFF0CA12BA5738300801A0A /* QuickFiltersModel.swift in Sources */,
 				CEFF0C8C2BA2BAC500801A0A /* UIColor + Extens.swift in Sources */,

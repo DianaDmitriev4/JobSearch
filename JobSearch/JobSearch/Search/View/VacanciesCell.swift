@@ -32,8 +32,6 @@ final class VacanciesCell: UICollectionViewCell {
     private lazy var selectedImageView: UIImageView = {
         let view = UIImageView()
         
-        view.image = UIImage(named: "selected")
-        
         return view
     }()
     
@@ -127,7 +125,7 @@ final class VacanciesCell: UICollectionViewCell {
     }
     
     // MARK: - Methods
-    func set(_ dataSource: Vacancy) {
+    func set(_ dataSource: Vacancy, isSelected: Bool) {
         guard let lookingNumber = dataSource.lookingNumber,
         let town = dataSource.address.town,
         let company = dataSource.company else { return }
@@ -140,6 +138,7 @@ final class VacanciesCell: UICollectionViewCell {
         cityAndCompanyLabel.text = "\(town)\n\(company)"
         experienceLabel.text = dataSource.experience?.previewText
         publishedDateLabel.text = "Опубликовано " + formatDate(from: dataSource.publishedDate ?? "")
+        selectedImageView.image = isSelected ? UIImage(named: "favorites") : UIImage(named: "selected")
     }
     
     // MARK: - Private methods
