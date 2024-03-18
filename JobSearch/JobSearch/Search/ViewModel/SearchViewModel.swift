@@ -12,6 +12,7 @@ protocol SearchViewModelProtocol {
     var vacancies: [Vacancy] { get set }
     var numberOfVacancies: ((Int) -> Void)? { get set }
     var reloadCollectionView: (() -> Void)? { get set }
+    var favorites: [Vacancy] { get set }
     
     func getVacancies()
 }
@@ -42,6 +43,7 @@ final class SearchViewModel: SearchViewModelProtocol {
                                                                iconColor: .darkGreen,
                                                                description: "Временная работа и подработка",
                                                                textAction: nil)]
+    var favorites: [Vacancy] = []
     
     func getVacancies() {
         ApiManager.getVacancies { [weak self] result in

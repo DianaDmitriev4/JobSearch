@@ -139,7 +139,7 @@ final class VacanciesCell: UICollectionViewCell {
         }
         cityAndCompanyLabel.text = "\(town)\n\(company)"
         experienceLabel.text = dataSource.experience?.previewText
-        publishedDateLabel.text = formatDate(from: dataSource.publishedDate ?? "")
+        publishedDateLabel.text = "Опубликовано " + formatDate(from: dataSource.publishedDate ?? "")
     }
     
     // MARK: - Private methods
