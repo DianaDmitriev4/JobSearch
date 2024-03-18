@@ -19,7 +19,6 @@ struct Offer: Codable  {
 
 // MARK: - Vacancy
 struct Vacancy: Codable  {
-//    let id: String?
     let lookingNumber: Int?
     let title: String?
     let address: Address
@@ -30,9 +29,10 @@ struct Vacancy: Codable  {
     let salary: Salary?
     let schedules: [String]
     let appliedNumber: Int?
-    let vacancyDescription: String?
+    let description: String?
     let responsibilities: String?
     let questions: [String]?
+    
 }
 
 // MARK: - Types
@@ -52,3 +52,4 @@ struct Salary: Codable {
     let full: String?
     let short: String?
 }
+

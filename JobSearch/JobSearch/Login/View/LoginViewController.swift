@@ -16,14 +16,14 @@ final class LoginViewController: UIViewController {
         }
     }
     private let inactiveButtonColor = UIColor.darkBlue
-    private let inactiveTextColor = UIColor.gray4
+    private let inactiveTextColor = UIColor.grey4
     private var viewModel: LoginViewModelProtocol // TODO: COORDINATOR
     
     // MARK: - GUI variables
     private lazy var jobContentView: UIView = {
         let view = UIView()
         
-        view.backgroundColor = .gray1
+        view.backgroundColor = .grey1
         view.layer.cornerRadius = 10
         
         return view
@@ -67,7 +67,7 @@ final class LoginViewController: UIViewController {
         
         textField.textColor = .white
         textField.clearButtonMode = .whileEditing
-        textField.backgroundColor = .gray2
+        textField.backgroundColor = .grey2
         
         if let clearButton = textField.value(forKey: "clearButton") as? UIButton {
             clearButton.setImage(UIImage(named: "clear"), for: .normal)
@@ -77,7 +77,7 @@ final class LoginViewController: UIViewController {
         imageAttachment.image = UIImage(named: "responses")
         let imageAttributed = NSAttributedString(attachment: imageAttachment)
         let placeholderText = "Электронная почта или телефон"
-        let placeholderAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.gray4,
+        let placeholderAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.grey4,
                                                                     .font: UIFont.systemFont(ofSize: 14),
                                                                     .baselineOffset: 6]
         
@@ -134,7 +134,7 @@ final class LoginViewController: UIViewController {
     private lazy var employeeContentView: UIView = {
         let view = UIView()
         
-        view.backgroundColor = .gray1
+        view.backgroundColor = .grey1
         view.layer.cornerRadius = 10
         
         return view

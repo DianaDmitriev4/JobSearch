@@ -65,7 +65,7 @@ final class CodeViewController: UIViewController {
         
         button.backgroundColor = .darkBlue
         button.setTitle("Подтвердить", for: .normal)
-        button.setTitleColor(.gray4, for: .normal)
+        button.setTitleColor(.grey4, for: .normal)
         button.layer.cornerRadius = 5
         button.addTarget(self, action: #selector(checkCode), for: .touchUpInside)
         button.isUserInteractionEnabled = false
@@ -135,7 +135,7 @@ final class CodeViewController: UIViewController {
         let textField = UITextField()
         
         textField.delegate = self
-        textField.backgroundColor = .gray2
+        textField.backgroundColor = .grey2
         textField.layer.cornerRadius = 5
         textField.keyboardType = .numberPad
         textField.font = .systemFont(ofSize: 20)
@@ -148,7 +148,7 @@ final class CodeViewController: UIViewController {
         paragraphStyle.alignment = .left
         paragraphStyle.firstLineHeadIndent = 20
         
-        textField.attributedPlaceholder = NSAttributedString(string: "*", attributes: [.foregroundColor: UIColor.gray3,
+        textField.attributedPlaceholder = NSAttributedString(string: "*", attributes: [.foregroundColor: UIColor.grey3,
                                                                                        .font: UIFont.systemFont(ofSize: 20),
                                                                                        .paragraphStyle: paragraphStyle])
         
