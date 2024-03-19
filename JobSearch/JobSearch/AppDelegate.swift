@@ -5,10 +5,20 @@
 //  Created by User on 12.03.2024.
 //
 
+import CoreData
 import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    static var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "Model")
+        container.loadPersistentStores { description, error in
+            if let error {
+                fatalError("Unable to load persistence stores: \(error)")
+            }
+        }
+        return container
+    }()
     
     var window: UIWindow?
     var coordinator: AppCoordinator?
@@ -21,8 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        
         window = UIWindow(frame: UIScreen.main.bounds)
         if let window {
-//            window.rootViewController = ContainerViewController() ВЕРНУТЬ НА МЕСТО!!!
-            window.rootViewController = TabBarController()
+            window.rootViewController = ContainerViewController()
+//            window.rootViewController = TabBarController()
             window.makeKeyAndVisible()
         }
         

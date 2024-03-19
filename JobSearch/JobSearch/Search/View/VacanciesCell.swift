@@ -8,6 +8,19 @@
 import UIKit
 
 final class VacanciesCell: UICollectionViewCell {
+    enum State {
+        case select, unselect
+        
+        var image: UIImage {
+            switch self {
+            case .select:
+                return UIImage(named: "selected") ?? UIImage()
+            case .unselect:
+                return UIImage(named: "favorites") ?? UIImage()
+            }
+        }
+    }
+    
     // MARK: - Properties
     var viewModel: SearchViewModelProtocol?
     
@@ -29,12 +42,13 @@ final class VacanciesCell: UICollectionViewCell {
         return label
     }()
     
-    private lazy var selectedImageView: UIImageView = {
-        let view = UIImageView()
+    private lazy var selectedButton: UIButton = {
+        let button = UIButton()
         
-        view.image = UIImage(named: "selected")
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        button.setImage(UIImage(named: "selected"), for: .normal)
         
-        return view
+        return button
     }()
     
     private lazy var jobTitleLabel: UILabel = {
@@ -127,7 +141,7 @@ final class VacanciesCell: UICollectionViewCell {
     }
     
     // MARK: - Methods
-    func set(_ dataSource: Vacancy) {
+    func set(_ dataSource: Vacancy, isSelected: Bool) {
         guard let lookingNumber = dataSource.lookingNumber,
         let town = dataSource.address.town,
         let company = dataSource.company else { return }
@@ -139,10 +153,17 @@ final class VacanciesCell: UICollectionViewCell {
         }
         cityAndCompanyLabel.text = "\(town)\n\(company)"
         experienceLabel.text = dataSource.experience?.previewText
-        publishedDateLabel.text = formatDate(from: dataSource.publishedDate ?? "")
+        publishedDateLabel.text = "Опубликовано " + formatDate(from: dataSource.publishedDate ?? "")
+        
+        let image = isSelected ? State.select.image : State.unselect.image
+        selectedButton.setImage(image, for: .normal)
     }
     
     // MARK: - Private methods
+    @objc private func buttonTapped() {
+        viewModel?.vacancyClosure?()
+    }
+    
     private func formatDate(from dateString: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -157,7 +178,7 @@ final class VacanciesCell: UICollectionViewCell {
     private func setupUI() {
         addSubview(container)
         container.addSubviews(views: [lookingNumberLabel,
-                                      selectedImageView,
+                                      selectedButton,
                                       jobTitleLabel,
                                       salaryLabel,
                                       cityAndCompanyLabel,
@@ -167,6 +188,7 @@ final class VacanciesCell: UICollectionViewCell {
                                       publishedDateLabel,
                                       applyJobButton])
         makeConstraint()
+//        bindingViewModel()
     }
     
     private func makeConstraint() {
@@ -178,7 +200,7 @@ final class VacanciesCell: UICollectionViewCell {
             make.top.leading.equalToSuperview().inset(16)
         }
         
-        selectedImageView.snp.makeConstraints { make in
+        selectedButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().inset(16)
             make.top.equalToSuperview().inset(16)
         }

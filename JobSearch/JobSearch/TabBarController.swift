@@ -24,7 +24,7 @@ final class TabBarController: UITabBarController {
     private func setupVC() {
         viewControllers = [
             setupNavigationControllers(rootVC: SearchViewController(viewModel: SearchViewModel()), image: UIImage(named: "search"), title: "Поиск"),
-            setupNavigationControllers(rootVC: SelectedViewController(), image: UIImage(named: "selected"), title: "Избранное"),
+            setupNavigationControllers(rootVC: SelectedViewController(viewModel: SelectedViewModel()), image: UIImage(named: "selected"), title: "Избранное"),
             setupNavigationControllers(rootVC: ResponsesViewController(), image: UIImage(named: "responses"), title: "Отклики"),
             setupNavigationControllers(rootVC: MessagesViewController(), image: UIImage(named: "messages"), title: "Сообщения"),
             setupNavigationControllers(rootVC: ProfileViewController(), image: UIImage(named: "profile"), title: "Профиль")

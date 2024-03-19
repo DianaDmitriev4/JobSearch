@@ -25,14 +25,12 @@ struct Vacancy: Codable  {
     let company: String?
     let experience: Experience?
     let publishedDate: String?
-    let isFavorite: Bool?
     let salary: Salary?
     let schedules: [String]
     let appliedNumber: Int?
     let description: String?
     let responsibilities: String?
     let questions: [String]?
-    
 }
 
 // MARK: - Types

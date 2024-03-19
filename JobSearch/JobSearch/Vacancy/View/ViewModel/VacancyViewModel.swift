@@ -14,7 +14,6 @@ final class VacancyViewModel {
     let company: String?
     let experience: ExperienceViewModel?
     let publishedDate: String?
-    let isFavorite: Bool?
     let salary: SalaryViewModel?
     let schedules: [String]
     let appliedNumber: Int?
@@ -29,7 +28,6 @@ final class VacancyViewModel {
         self.company = dataSource.company
         self.experience = ExperienceViewModel(previewText: dataSource.experience?.previewText, text: dataSource.experience?.text)
         self.publishedDate = dataSource.publishedDate
-        self.isFavorite = dataSource.isFavorite
         self.salary = SalaryViewModel(full: dataSource.salary?.full, short: dataSource.salary?.short)
         self.schedules = dataSource.schedules.compactMap { $0 }
         self.appliedNumber = dataSource.appliedNumber
