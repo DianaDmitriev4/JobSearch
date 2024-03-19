@@ -84,8 +84,7 @@ final class SearchViewController: UIViewController {
         let collectionViewFlowLayout = UICollectionViewFlowLayout()
         
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: collectionViewFlowLayout)
-        
-        //        collectionView.isScrollEnabled = false
+        collectionView.isScrollEnabled = false
         
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -164,16 +163,12 @@ final class SearchViewController: UIViewController {
     private func makeConstraint() {
         scrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-            make.height.equalTo(1000)
-            //            make.top.leading.trailing.equalToSuperview()
-            //            make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
         contentView.snp.makeConstraints { make in
-            //            make.top.leading.trailing.equalToSuperview()
-            //            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            let height = view.frame.height + 240
             make.edges.equalToSuperview()
-            make.height.equalTo(1000)
+            make.height.equalTo(height)
             make.width.equalTo(scrollView.snp.width)
         }
         
@@ -226,9 +221,9 @@ extension SearchViewController: UICollectionViewDataSource {
         if collectionView == quickFiltersCollectionView {
             return viewModel.quickFilters.count
         } else {
-            //            let firstThree = viewModel.vacancies.prefix(3)
-            //            return firstThree.count
-            return viewModel.vacancies.count
+            let firstThree = viewModel.vacancies.prefix(3)
+            return firstThree.count
+            //            return viewModel.vacancies.count
         }
     }
     
@@ -240,7 +235,7 @@ extension SearchViewController: UICollectionViewDataSource {
             
             return quickFiltersCell
         } else {
-            guard let vacanciesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "VacanciesCell", 
+            guard let vacanciesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "VacanciesCell",
                                                                          for: indexPath) as? VacanciesCell else { return UICollectionViewCell() }
             vacanciesCell.viewModel = viewModel
             
