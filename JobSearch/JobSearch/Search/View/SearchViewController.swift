@@ -13,11 +13,10 @@ final class SearchViewController: UIViewController {
     
     // MARK: - GUI Variables
     private lazy var scrollView: UIScrollView = {
-       let scroll = UIScrollView()
+        let scroll = UIScrollView()
         
         let width = view.frame.width
-//        let height = searchBar.intrinsicContentSize.height + quickFiltersCollectionView.frame.height + vacancyCollectionView.frame.height + moreButton.frame.height + 134
-//        scroll.contentSize = CGSize(width: width, height: 1000)
+        
         scroll.isScrollEnabled = true
         scroll.alwaysBounceVertical = true
         
@@ -25,7 +24,7 @@ final class SearchViewController: UIViewController {
     }()
     
     private let contentView: UIView = {
-       let view = UIView()
+        let view = UIView()
         
         return view
     }()
@@ -86,12 +85,12 @@ final class SearchViewController: UIViewController {
         
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: collectionViewFlowLayout)
         
-//        collectionView.isScrollEnabled = false
-
+        //        collectionView.isScrollEnabled = false
+        
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = .black
-
+        
         
         return collectionView
     }()
@@ -166,13 +165,13 @@ final class SearchViewController: UIViewController {
         scrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
             make.height.equalTo(1000)
-//            make.top.leading.trailing.equalToSuperview()
-//            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            //            make.top.leading.trailing.equalToSuperview()
+            //            make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
         contentView.snp.makeConstraints { make in
-//            make.top.leading.trailing.equalToSuperview()
-//            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            //            make.top.leading.trailing.equalToSuperview()
+            //            make.bottom.equalTo(view.safeAreaLayoutGuide)
             make.edges.equalToSuperview()
             make.height.equalTo(1000)
             make.width.equalTo(scrollView.snp.width)
@@ -227,8 +226,8 @@ extension SearchViewController: UICollectionViewDataSource {
         if collectionView == quickFiltersCollectionView {
             return viewModel.quickFilters.count
         } else {
-//            let firstThree = viewModel.vacancies.prefix(3)
-//            return firstThree.count
+            //            let firstThree = viewModel.vacancies.prefix(3)
+            //            return firstThree.count
             return viewModel.vacancies.count
         }
     }
@@ -251,7 +250,7 @@ extension SearchViewController: UICollectionViewDataSource {
             }
             
             vacanciesCell.set(vacancy, isSelected: viewModel.isSelected(vacancy))
-            
+            collectionView.reloadItems(at: [indexPath])
             
             return vacanciesCell
         }
@@ -274,7 +273,7 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
         if collectionView == quickFiltersCollectionView  {
             return CGSize(width: 132, height: collectionView.frame.height)
         } else {
-                return CGSize(width: collectionView.frame.width, height: 240) //TODO: - ВЫСЧИТАТЬ РАЗМЕР ЯЧЕЙКИ
+            return CGSize(width: collectionView.frame.width, height: 240) //TODO: - ВЫСЧИТАТЬ РАЗМЕР ЯЧЕЙКИ
         }
     }
 }

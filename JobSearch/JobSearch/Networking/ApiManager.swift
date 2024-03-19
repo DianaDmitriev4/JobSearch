@@ -12,14 +12,14 @@ final class ApiManager {
         guard let url = URL(string: "https://run.mocky.io/v3/ed41d10e-0c1f-4439-94fa-9702c9d95c14") else { return }
         
         let urlRequest = URLRequest(url: url)
-      let session = URLSession.shared.dataTask(with: urlRequest) { data, _, error in
+        let session = URLSession.shared.dataTask(with: urlRequest) { data, _, error in
             handleResponse(data: data, error: error, completion: completion)
         }
         session.resume()
     }
     
     
-   static private func handleResponse(data: Data?, error: Error?, completion: @escaping (Result<[Vacancy], Error>) -> Void) {
+    static private func handleResponse(data: Data?, error: Error?, completion: @escaping (Result<[Vacancy], Error>) -> Void) {
         if let error {
             completion(.failure(error))
         } else if let data {

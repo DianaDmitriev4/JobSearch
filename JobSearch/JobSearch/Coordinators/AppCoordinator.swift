@@ -16,6 +16,4 @@ final class AppCoordinator: Coordinator {
     
     func start() {
     }
-    
-
 }

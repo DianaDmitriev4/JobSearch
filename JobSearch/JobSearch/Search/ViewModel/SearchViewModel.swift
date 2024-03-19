@@ -72,7 +72,7 @@ final class SearchViewModel: SearchViewModelProtocol {
     
     func isSelected(_ vacancy: Vacancy) -> Bool {
         favorites.contains(where: { $0.title == vacancy.title} )
-   }
+    }
     
     // MARK: - Private methods
     private func save(_ vacancy: Vacancy) {

@@ -143,8 +143,8 @@ final class VacanciesCell: UICollectionViewCell {
     // MARK: - Methods
     func set(_ dataSource: Vacancy, isSelected: Bool) {
         guard let lookingNumber = dataSource.lookingNumber,
-        let town = dataSource.address.town,
-        let company = dataSource.company else { return }
+              let town = dataSource.address.town,
+              let company = dataSource.company else { return }
         
         lookingNumberLabel.text =  "Сейчас просматривает " + String(lookingNumber) + "человек"
         jobTitleLabel.text = dataSource.title
@@ -188,7 +188,7 @@ final class VacanciesCell: UICollectionViewCell {
                                       publishedDateLabel,
                                       applyJobButton])
         makeConstraint()
-//        bindingViewModel()
+        //        bindingViewModel()
     }
     
     private func makeConstraint() {
