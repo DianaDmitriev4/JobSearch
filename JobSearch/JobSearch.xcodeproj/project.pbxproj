@@ -132,7 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				CEFF0C7B2BA18D4E00801A0A /* SelectedViewController.swift */,
-				CEAF0B532BA898D6003E1F36 /* SelectedViewModel.swift */,
+				CEAF0B552BA90F9A003E1F36 /* ViewModel */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -156,6 +156,14 @@
 				CEFF0C812BA18DAC00801A0A /* ProfileViewController.swift */,
 			);
 			path = OtherInactiveScreen;
+			sourceTree = "<group>";
+		};
+		CEAF0B552BA90F9A003E1F36 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CEAF0B532BA898D6003E1F36 /* SelectedViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		CEFF0C452BA0B53400801A0A = {

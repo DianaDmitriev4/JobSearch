@@ -13,20 +13,25 @@ final class VacancyPersistent {
     
     // MARK: - Methods
     static func save(_ vacancy: Vacancy) {
-        guard let description = NSEntityDescription.entity(forEntityName: "VacancyEntity", in: context) else { return }
-        let entity = VacancyEntity(entity: description, insertInto: context)
+        var entity: VacancyEntity?
+        if let ent = getEntity(vacancy) {
+            entity = ent
+        } else {
+            guard let description = NSEntityDescription.entity(forEntityName: "VacancyEntity", in: context) else { return }
+             entity = VacancyEntity(entity: description, insertInto: context)
+        }
         
-        entity.address = vacancy.address.town
-        entity.company = vacancy.company
-        entity.experience = vacancy.experience?.previewText
-        entity.lookingNumber = Int32(vacancy.lookingNumber ?? 0)
-        entity.publishedDate = vacancy.publishedDate
-        entity.salary = vacancy.salary?.short
-        entity.schedules = vacancy.schedules.joined(separator: ", ")
-        entity.title = vacancy.title
-        entity.appliedNumber = Int32(vacancy.appliedNumber ?? 0)
-        entity.responsibilities = vacancy.responsibilities
-        entity.question = vacancy.questions?.joined(separator: ", ")
+        entity?.address = vacancy.address.town
+        entity?.company = vacancy.company
+        entity?.experience = vacancy.experience?.previewText
+        entity?.lookingNumber = Int32(vacancy.lookingNumber ?? 0)
+        entity?.publishedDate = vacancy.publishedDate
+        entity?.salary = vacancy.salary?.short
+        entity?.schedules = vacancy.schedules.joined(separator: ", ")
+        entity?.title = vacancy.title
+        entity?.appliedNumber = Int32(vacancy.appliedNumber ?? 0)
+        entity?.responsibilities = vacancy.responsibilities
+        entity?.question = vacancy.questions?.joined(separator: ", ")
         
         saveContext()
     }
@@ -44,24 +49,24 @@ final class VacancyPersistent {
             return convert(entity: vacancy)
         } catch let error {
             debugPrint("Fetch vacancy error: \(error)")
+            return []
         }
-        
     }
     
     // MARK: - Private methods
     private static func getEntity(_ vacancy: Vacancy) -> VacancyEntity? {
         let request = VacancyEntity.fetchRequest()
         if let title = vacancy.title {
-            let predicate = NSPredicate(format: "name = %@", title)
+            let predicate = NSPredicate(format: "title = %@", title)
             request.predicate = predicate
-            
-            do {
-                let objects = try context.fetch(request)
-                return objects.first
-            } catch let error {
-                debugPrint("Fetch error: \(error)")
-                return nil
-            }
+        }
+        
+        do {
+            let objects = try context.fetch(request)
+            return objects.first
+        } catch let error {
+            debugPrint("Fetch error: \(error)")
+            return nil
         }
     }
     
@@ -81,7 +86,7 @@ final class VacancyPersistent {
         return vacancy
     }
     
-private static func saveContext() {
+    private static func saveContext() {
         do {
             try context.save()
         } catch let error {

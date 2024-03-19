@@ -8,6 +8,19 @@
 import UIKit
 
 final class VacanciesCell: UICollectionViewCell {
+    enum State {
+        case select, unselect
+        
+        var image: UIImage {
+            switch self {
+            case .select:
+                return UIImage(named: "selected") ?? UIImage()
+            case .unselect:
+                return UIImage(named: "favorites") ?? UIImage()
+            }
+        }
+    }
+    
     // MARK: - Properties
     var viewModel: SearchViewModelProtocol?
     
@@ -29,10 +42,13 @@ final class VacanciesCell: UICollectionViewCell {
         return label
     }()
     
-    private lazy var selectedImageView: UIImageView = {
-        let view = UIImageView()
+    private lazy var selectedButton: UIButton = {
+        let button = UIButton()
         
-        return view
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        button.setImage(UIImage(named: "selected"), for: .normal)
+        
+        return button
     }()
     
     private lazy var jobTitleLabel: UILabel = {
@@ -138,10 +154,16 @@ final class VacanciesCell: UICollectionViewCell {
         cityAndCompanyLabel.text = "\(town)\n\(company)"
         experienceLabel.text = dataSource.experience?.previewText
         publishedDateLabel.text = "Опубликовано " + formatDate(from: dataSource.publishedDate ?? "")
-        selectedImageView.image = isSelected ? UIImage(named: "favorites") : UIImage(named: "selected")
+        
+        let image = isSelected ? State.select.image : State.unselect.image
+        selectedButton.setImage(image, for: .normal)
     }
     
     // MARK: - Private methods
+    @objc private func buttonTapped() {
+        viewModel?.vacancyClosure?()
+    }
+    
     private func formatDate(from dateString: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -156,7 +178,7 @@ final class VacanciesCell: UICollectionViewCell {
     private func setupUI() {
         addSubview(container)
         container.addSubviews(views: [lookingNumberLabel,
-                                      selectedImageView,
+                                      selectedButton,
                                       jobTitleLabel,
                                       salaryLabel,
                                       cityAndCompanyLabel,
@@ -166,6 +188,7 @@ final class VacanciesCell: UICollectionViewCell {
                                       publishedDateLabel,
                                       applyJobButton])
         makeConstraint()
+//        bindingViewModel()
     }
     
     private func makeConstraint() {
@@ -177,7 +200,7 @@ final class VacanciesCell: UICollectionViewCell {
             make.top.leading.equalToSuperview().inset(16)
         }
         
-        selectedImageView.snp.makeConstraints { make in
+        selectedButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().inset(16)
             make.top.equalToSuperview().inset(16)
         }

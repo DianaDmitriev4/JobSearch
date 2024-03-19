@@ -158,6 +158,10 @@ final class SearchViewController: UIViewController {
         }
     }
     
+    private func handleButtonTapped(for vacancy: Vacancy) {
+        viewModel.buttonTapped(vacancy: vacancy, isSelected: viewModel.isSelected(vacancy))
+    }
+    
     private func makeConstraint() {
         scrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -239,8 +243,15 @@ extension SearchViewController: UICollectionViewDataSource {
         } else {
             guard let vacanciesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "VacanciesCell", 
                                                                          for: indexPath) as? VacanciesCell else { return UICollectionViewCell() }
-            vacanciesCell.set(viewModel.vacancies[indexPath.row])
             vacanciesCell.viewModel = viewModel
+            
+            let vacancy = viewModel.vacancies[indexPath.row]
+            viewModel.vacancyClosure = { [weak self] in
+                self?.handleButtonTapped(for: vacancy)
+            }
+            
+            vacanciesCell.set(vacancy, isSelected: viewModel.isSelected(vacancy))
+            
             
             return vacanciesCell
         }

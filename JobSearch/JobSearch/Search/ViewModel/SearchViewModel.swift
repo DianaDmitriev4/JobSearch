@@ -12,19 +12,22 @@ protocol SearchViewModelProtocol {
     var vacancies: [Vacancy] { get set }
     var numberOfVacancies: ((Int) -> Void)? { get set }
     var reloadCollectionView: (() -> Void)? { get set }
-    var selectedImage: Dynamic<UIImage> { get set }
+    var favorites: [Vacancy] { get set }
+    var vacancyClosure: (() -> Void)? { get set }
     
     func getVacancies()
-}
-
-extension SearchViewModelProtocol {
-     var favorites: [Vacancy] {
-        return []
-    }
+    func buttonTapped(vacancy: Vacancy, isSelected: Bool)
+    func isSelected(_ vacancy: Vacancy) -> Bool
 }
 
 final class SearchViewModel: SearchViewModelProtocol {
-    var selectedImage = Dynamic(UIImage())
+    var vacancyClosure: (() -> Void)?
+    var favorites: [Vacancy] = [] {
+        didSet {
+            print(favorites.count)
+        }
+    }
+    
     var reloadCollectionView: (() -> Void)?
     var numberOfVacancies: ((Int) -> Void)?
     var vacancies: [Vacancy] = [] {
@@ -57,9 +60,28 @@ final class SearchViewModel: SearchViewModelProtocol {
         }
     }
     
-    func isSelected(_ vacancy: Vacancy) -> Bool {
-        favorites.contains(where: { $0.title == vacancy.title } )
+    func buttonTapped(vacancy: Vacancy, isSelected: Bool) {
+        if isSelected {
+            favorites.removeAll(where: { $0.title == vacancy.title })
+            remove(vacancy)
+        } else {
+            favorites.append(vacancy)
+            save(vacancy)
         }
+    }
+    
+    func isSelected(_ vacancy: Vacancy) -> Bool {
+        favorites.contains(where: { $0.title == vacancy.title} )
+   }
+    
+    // MARK: - Private methods
+    private func save(_ vacancy: Vacancy) {
+        VacancyPersistent.save(vacancy)
+    }
+    
+    private func remove(_ vacancy: Vacancy) {
+        VacancyPersistent.deleteEntity(vacancy)
+    }
     
     private func handleResult(result: Result<[Vacancy], Error>) {
         DispatchQueue.main.async { [weak self] in
