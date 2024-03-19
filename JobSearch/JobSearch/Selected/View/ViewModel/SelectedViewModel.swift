@@ -39,7 +39,7 @@ final class SelectedViewModel: SelectedViewModelProtocol {
     
     func isSelected(_ vacancy: Vacancy) -> Bool {
         selectedVacancy.contains(where: { $0.title == vacancy.title} )
-   }
+    }
     
     func getVacancy() {
         selectedVacancy = VacancyPersistent.fetchAll()

@@ -156,8 +156,8 @@ final class VacancyViewController: UIViewController {
         descriptionLabel.text = viewModel.description
         taskLabel.text = "Ваши задачи"
         
-                taskDescriptionLabel.text = viewModel.responsibilities // NEEDS TO CHANGE
-
+        taskDescriptionLabel.text = viewModel.responsibilities // NEEDS TO CHANGE
+        
         questionLabel.text = "Задайте вопрос работодателю"
         questionGrayLabel.text = "Он получит его с откликом на вакансию"
         

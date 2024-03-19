@@ -18,7 +18,7 @@ final class QuickFiltersCell: UICollectionViewCell {
     }()
     
     private lazy var iconImageView: UIImageView = {
-       let view = UIImageView()
+        let view = UIImageView()
         view.layer.cornerRadius = 16
         
         return view
@@ -64,7 +64,7 @@ final class QuickFiltersCell: UICollectionViewCell {
             raiseLabel.text = textButton
         }
     }
-
+    
     // MARK: - Private methods
     private func setupUI() {
         addSubview(container)

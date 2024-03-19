@@ -18,7 +18,7 @@ final class VacancyPersistent {
             entity = ent
         } else {
             guard let description = NSEntityDescription.entity(forEntityName: "VacancyEntity", in: context) else { return }
-             entity = VacancyEntity(entity: description, insertInto: context)
+            entity = VacancyEntity(entity: description, insertInto: context)
         }
         
         entity?.address = vacancy.address.town

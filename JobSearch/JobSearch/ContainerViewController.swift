@@ -31,7 +31,7 @@ class ContainerViewController: UIViewController {
         view.addSubview(tabBarController.view)
         tabBarController.didMove(toParent: self)
         
-        let loginVC = LoginViewController(viewModel: LoginViewModel()) // TODO: COORDINATORS
+        let loginVC = LoginViewController(viewModel: LoginViewModel()) 
         let navigationController = UINavigationController(rootViewController: loginVC)
         addChild(navigationController)
         view.addSubview(navigationController.view)
