@@ -62,6 +62,7 @@ final class SearchViewController: UIViewController {
         collectionViewFlowLayout.scrollDirection = .horizontal
         
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: collectionViewFlowLayout)
+        collectionView.showsHorizontalScrollIndicator = false
         
         collectionView.dataSource = self
         collectionView.delegate = self
