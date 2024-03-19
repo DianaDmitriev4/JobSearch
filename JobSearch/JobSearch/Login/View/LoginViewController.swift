@@ -198,6 +198,15 @@ final class LoginViewController: UIViewController {
         }
     }
     
+    @objc private func hideKeyboardWhenTappedAround() {
+        view.endEditing(true)
+    }
+    
+    private func addTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardWhenTappedAround))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
     private func setupUI() {
         view.backgroundColor = .black
         createNavBar()
@@ -215,6 +224,7 @@ final class LoginViewController: UIViewController {
         
         makeConstraint()
         bindViewModel()
+        addTapGesture()
     }
     
     private func bindViewModel() {
@@ -320,5 +330,9 @@ extension LoginViewController: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
         guard let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) else { return }
         email = text
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        emailTextField.resignFirstResponder()
     }
 }

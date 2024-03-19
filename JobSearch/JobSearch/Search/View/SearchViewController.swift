@@ -16,8 +16,7 @@ final class SearchViewController: UIViewController {
        let scroll = UIScrollView()
         
         let width = view.frame.width
-//        let height = searchBar.intrinsicContentSize.height + quickFiltersCollectionView.frame.height + vacancyCollectionView.frame.height + moreButton.frame.height + 134
-//        scroll.contentSize = CGSize(width: width, height: 1000)
+        
         scroll.isScrollEnabled = true
         scroll.alwaysBounceVertical = true
         
@@ -251,7 +250,7 @@ extension SearchViewController: UICollectionViewDataSource {
             }
             
             vacanciesCell.set(vacancy, isSelected: viewModel.isSelected(vacancy))
-            
+            collectionView.reloadItems(at: [indexPath])
             
             return vacanciesCell
         }
