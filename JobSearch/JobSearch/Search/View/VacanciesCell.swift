@@ -142,11 +142,13 @@ final class VacanciesCell: UICollectionViewCell {
     
     // MARK: - Methods
     func set(_ dataSource: Vacancy, isSelected: Bool) {
-        guard let lookingNumber = dataSource.lookingNumber,
-              let town = dataSource.address.town,
+        if let lookingNumber = dataSource.lookingNumber {
+            lookingNumberLabel.text =  "Сейчас просматривает " + String(lookingNumber) + "человек"
+        }
+        
+        guard let town = dataSource.address.town,
               let company = dataSource.company else { return }
         
-        lookingNumberLabel.text =  "Сейчас просматривает " + String(lookingNumber) + "человек"
         jobTitleLabel.text = dataSource.title
         if let salary = dataSource.salary?.short {
             salaryLabel.text = salary
