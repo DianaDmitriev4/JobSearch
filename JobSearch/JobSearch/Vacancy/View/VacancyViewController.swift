@@ -69,7 +69,7 @@ final class VacancyViewController: UIViewController {
     
     private lazy var companyLabel = makeLabel(font: .boldSystemFont(ofSize: 14))
     private lazy var companyIconImageView = makeImageView(name: "icon")
-//    private lazy var mapImageView = makeImageView(name: "map")
+    
     private lazy var map: MKMapView = {
        let map = MKMapView()
     
