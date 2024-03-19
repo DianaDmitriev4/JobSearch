@@ -5,6 +5,8 @@
 //  Created by User on 17.03.2024.
 //
 
+import CoreLocation
+import MapKit
 import UIKit
 
 final class VacancyViewController: UIViewController {
@@ -67,7 +69,13 @@ final class VacancyViewController: UIViewController {
     
     private lazy var companyLabel = makeLabel(font: .boldSystemFont(ofSize: 14))
     private lazy var companyIconImageView = makeImageView(name: "icon")
-    private lazy var mapImageView = makeImageView(name: "map")
+//    private lazy var mapImageView = makeImageView(name: "map")
+    private lazy var map: MKMapView = {
+       let map = MKMapView()
+    
+        return map
+    }()
+    
     private lazy var addressLabel = makeLabel(font: .systemFont(ofSize: 14))
     private lazy var descriptionLabel = makeLabel(font: .systemFont(ofSize: 14))
     private lazy var taskLabel = makeLabel(font: .boldSystemFont(ofSize: 20))
@@ -114,6 +122,29 @@ final class VacancyViewController: UIViewController {
     @objc private func addOrRemoveFromFavorites() {
         
     }
+    
+    private func decodeAndSetAddress() {
+        if let town = viewModel.address.town,
+           let street = viewModel.address.street,
+           let house = viewModel.address.house {
+            let address = town + ", " + street + ", " + house
+            
+            let geocoder = CLGeocoder()
+            geocoder.geocodeAddressString(address) { placemarks, error in
+                if let placemark = placemarks?.first,
+                   let coordinate = placemark.location?.coordinate {
+                    let annotation = MKPointAnnotation()
+                    annotation.coordinate = coordinate
+                    
+                    self.map.addAnnotation(annotation)
+                    self.map.setRegion(MKCoordinateRegion(center: coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000), animated: true)
+                } else {
+                    debugPrint("Geocoding error: \(String(describing: error))")
+                }
+            }
+        }
+    }
+    
     private func setData() {
         titleLabel.text = viewModel.title
         salaryLabel.text = viewModel.salary?.full
@@ -239,10 +270,11 @@ final class VacancyViewController: UIViewController {
                                         applyButton])
         appliedNumberView.addSubviews(views: [appliedNumberLabel, appliedNumberImageView])
         lookingNumberView.addSubviews(views: [lookingNumberLabel, lookingNumberImageView])
-        containerView.addSubviews(views: [companyLabel, companyIconImageView, mapImageView, addressLabel])
+        containerView.addSubviews(views: [companyLabel, companyIconImageView, map, addressLabel])
         makeConstraint()
         setNavBar()
         setData()
+        decodeAndSetAddress()
     }
     
     private func makeConstraint() {
@@ -324,14 +356,15 @@ final class VacancyViewController: UIViewController {
             make.centerY.equalTo(companyLabel.snp.centerY)
         }
         
-        mapImageView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(16)
+        map.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(16)
             make.top.equalTo(companyLabel.snp.bottom).offset(8)
+            make.height.equalTo(58)
         }
         
         addressLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(16)
-            make.top.equalTo(mapImageView.snp.bottom).offset(8)
+            make.top.equalTo(map.snp.bottom).offset(8)
         }
         
         descriptionLabel.snp.makeConstraints { make in
