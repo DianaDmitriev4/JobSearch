@@ -23,7 +23,9 @@ final class SelectedViewModel: SelectedViewModelProtocol {
     
     var selectedVacancy: [Vacancy] = [] {
         didSet {
-            reloadCollection?()
+            DispatchQueue.main.async { [weak self] in
+                self?.reloadCollection?()
+            }
         }
     }
     
