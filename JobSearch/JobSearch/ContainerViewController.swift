@@ -12,11 +12,13 @@ class ContainerViewController: UIViewController {
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupUI()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
         makeConstraints()
     }
     
@@ -32,25 +34,23 @@ class ContainerViewController: UIViewController {
         tabBarController.didMove(toParent: self)
         
         let loginVC = LoginViewController(viewModel: LoginViewModel()) 
-        let navigationController = UINavigationController(rootViewController: loginVC)
-        addChild(navigationController)
-        view.addSubview(navigationController.view)
-        navigationController.didMove(toParent: self)
+//        let navigationController = UINavigationController(rootViewController: loginVC)
+        addChild(loginVC)
+        view.addSubview(loginVC.view)
+        loginVC.didMove(toParent: self)
     }
     
     private func makeConstraints() {
         guard let tabBarController = children.first as? TabBarController,
-              let loginVC = children.last as? UINavigationController else { return }
+              let loginVC = children.last else { return }
         
         tabBarController.view.snp.makeConstraints { make in
-            make.leading.trailing.bottom.equalToSuperview()
-            make.height.equalTo(tabBarController.tabBar.frame.height)
+            make.edges.equalToSuperview()
         }
         
         loginVC.view.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(tabBarController.view.snp.top)
-            make.top.equalToSuperview()
+            make.leading.trailing.top.equalToSuperview()
+            make.bottom.equalTo(tabBarController.tabBar.snp.top)
         }
     }
 }

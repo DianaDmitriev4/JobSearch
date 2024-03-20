@@ -194,7 +194,9 @@ final class LoginViewController: UIViewController {
     @objc private func checkEmail() {
         let isLogin = viewModel.buttonPressed(email: email)
         if isLogin {
-            navigationController?.pushViewController(CodeViewController(viewModel: self.viewModel), animated: true) //TODO: COORDINATOR
+            present(CodeViewController(viewModel: self.viewModel), animated: true) //TODO: COORDINATOR
+            self.removeFromParent()
+            self.view.removeFromSuperview()
         }
     }
     

@@ -31,8 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //        
         window = UIWindow(frame: UIScreen.main.bounds)
         if let window {
-//            window.rootViewController = ContainerViewController()
-                        window.rootViewController = TabBarController()
+            window.rootViewController = ContainerViewController()
+//                        window.rootViewController = TabBarController()
             window.makeKeyAndVisible()
         }
         
