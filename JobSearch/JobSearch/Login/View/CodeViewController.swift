@@ -94,7 +94,6 @@ final class CodeViewController: UIViewController {
     // MARK: - Private methods
     @objc private func checkCode() {
         if isAllTextFieldsFilled {
-            let newNavigationController = UINavigationController(rootViewController: TabBarController())
             dismiss(animated: true)
         }
     }
