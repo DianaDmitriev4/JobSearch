@@ -14,6 +14,7 @@
 		CEAF0B502BA869E5003E1F36 /* VacancyEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAF0B4E2BA869E5003E1F36 /* VacancyEntity+CoreDataClass.swift */; };
 		CEAF0B512BA869E5003E1F36 /* VacancyEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAF0B4F2BA869E5003E1F36 /* VacancyEntity+CoreDataProperties.swift */; };
 		CEAF0B542BA898D6003E1F36 /* SelectedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAF0B532BA898D6003E1F36 /* SelectedViewModel.swift */; };
+		CEAF0BC82BAAE95E003E1F36 /* VacancyDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAF0BC72BAAE95E003E1F36 /* VacancyDelegate.swift */; };
 		CEFF0C522BA0B53400801A0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C512BA0B53400801A0A /* AppDelegate.swift */; };
 		CEFF0C562BA0B53400801A0A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF0C552BA0B53400801A0A /* LoginViewController.swift */; };
 		CEFF0C5B2BA0B53600801A0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEFF0C5A2BA0B53600801A0A /* Assets.xcassets */; };
@@ -52,6 +53,7 @@
 		CEAF0B4E2BA869E5003E1F36 /* VacancyEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VacancyEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		CEAF0B4F2BA869E5003E1F36 /* VacancyEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VacancyEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CEAF0B532BA898D6003E1F36 /* SelectedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedViewModel.swift; sourceTree = "<group>"; };
+		CEAF0BC72BAAE95E003E1F36 /* VacancyDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacancyDelegate.swift; sourceTree = "<group>"; };
 		CEFF0C4E2BA0B53400801A0A /* JobSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JobSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEFF0C512BA0B53400801A0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEFF0C552BA0B53400801A0A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -281,6 +283,7 @@
 			isa = PBXGroup;
 			children = (
 				CEFF0C962BA4883C00801A0A /* SearchViewModel.swift */,
+				CEAF0BC72BAAE95E003E1F36 /* VacancyDelegate.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 				CEFF0C562BA0B53400801A0A /* LoginViewController.swift in Sources */,
 				CEFF0C7A2BA18D1E00801A0A /* SearchViewController.swift in Sources */,
 				CEFF0CA32BA5C8AA00801A0A /* ApiManager.swift in Sources */,
+				CEAF0BC82BAAE95E003E1F36 /* VacancyDelegate.swift in Sources */,
 				CEFF0C8F2BA2C1E800801A0A /* UIStackView + extens.swift in Sources */,
 				CEFF0C7E2BA18D7600801A0A /* ResponsesViewController.swift in Sources */,
 				CEFF0C782BA185A600801A0A /* TabBarController.swift in Sources */,

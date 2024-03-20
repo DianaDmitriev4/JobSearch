@@ -13,7 +13,6 @@ protocol SearchViewModelProtocol {
     var numberOfVacancies: ((Int) -> Void)? { get set }
     var reloadCollectionView: (() -> Void)? { get set }
     var favorites: [Vacancy] { get set }
-    var vacancyClosure: (() -> Void)? { get set }
     
     func getVacancies()
     func buttonTapped(vacancy: Vacancy, isSelected: Bool)
@@ -21,7 +20,6 @@ protocol SearchViewModelProtocol {
 }
 
 final class SearchViewModel: SearchViewModelProtocol {
-    var vacancyClosure: (() -> Void)?
     var favorites: [Vacancy] = [] {
         didSet {
             print(favorites.count)

@@ -167,7 +167,7 @@ final class SearchViewController: UIViewController {
         }
         
         contentView.snp.makeConstraints { make in
-            let height = view.frame.height + 240
+            let height = view.frame.height + 300
             make.edges.equalToSuperview()
             make.height.equalTo(height)
             make.width.equalTo(scrollView.snp.width)
@@ -224,7 +224,6 @@ extension SearchViewController: UICollectionViewDataSource {
         } else {
             let firstThree = viewModel.vacancies.prefix(3)
             return firstThree.count
-            //            return viewModel.vacancies.count
         }
     }
     
@@ -239,14 +238,11 @@ extension SearchViewController: UICollectionViewDataSource {
             guard let vacanciesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "VacanciesCell",
                                                                          for: indexPath) as? VacanciesCell else { return UICollectionViewCell() }
             vacanciesCell.viewModel = viewModel
+            vacanciesCell.delegate = self
             
             let vacancy = viewModel.vacancies[indexPath.row]
-            viewModel.vacancyClosure = { [weak self] in
-                self?.handleButtonTapped(for: vacancy)
-            }
             
             vacanciesCell.set(vacancy, isSelected: viewModel.isSelected(vacancy))
-            collectionView.reloadItems(at: [indexPath])
             
             return vacanciesCell
         }
@@ -269,7 +265,16 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
         if collectionView == quickFiltersCollectionView  {
             return CGSize(width: 132, height: collectionView.frame.height)
         } else {
-            return CGSize(width: collectionView.frame.width, height: 240) //TODO: - ВЫСЧИТАТЬ РАЗМЕР ЯЧЕЙКИ
+            return CGSize(width: collectionView.frame.width, height: 270) //TODO: - ВЫСЧИТАТЬ РАЗМЕР ЯЧЕЙКИ
         }
+    }
+}
+
+extension SearchViewController: VacancyDelegate {
+    func buttonTapped(_ cell: VacanciesCell) {
+        guard let indexPath = vacancyCollectionView.indexPath(for: cell) else { return }
+        let currentVacancy = viewModel.vacancies[indexPath.row]
+        viewModel.buttonTapped(vacancy: currentVacancy, isSelected: viewModel.isSelected(currentVacancy))
+        vacancyCollectionView.reloadItems(at: [indexPath])
     }
 }
