@@ -239,9 +239,7 @@ extension SearchViewController: UICollectionViewDataSource {
                                                                          for: indexPath) as? VacanciesCell else { return UICollectionViewCell() }
             vacanciesCell.viewModel = viewModel
             vacanciesCell.delegate = self
-            
             let vacancy = viewModel.vacancies[indexPath.row]
-            
             vacanciesCell.set(vacancy, isSelected: viewModel.isSelected(vacancy))
             
             return vacanciesCell

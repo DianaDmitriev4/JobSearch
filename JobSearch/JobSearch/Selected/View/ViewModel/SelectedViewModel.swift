@@ -10,7 +10,6 @@ import Foundation
 protocol SelectedViewModelProtocol {
     var selectedVacancy: [Vacancy] { get set }
     var reloadCollection: (() -> Void)? { get set }
-    var vacancyClosure: (() -> Void)? { get set }
     
     func getVacancy()
     func buttonTapped(vacancy: Vacancy, isSelected: Bool)
@@ -19,7 +18,6 @@ protocol SelectedViewModelProtocol {
 
 final class SelectedViewModel: SelectedViewModelProtocol {
     var reloadCollection: (() -> Void)?
-    var vacancyClosure: (() -> Void)?
     
     var selectedVacancy: [Vacancy] = [] {
         didSet {

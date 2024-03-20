@@ -39,6 +39,7 @@ final class SelectedViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = .black
+        collectionView.showsVerticalScrollIndicator = false
         
         return collectionView
     }()
@@ -110,9 +111,6 @@ extension SelectedViewController: UICollectionViewDataSource {
                 as? VacanciesCell else { return UICollectionViewCell() }
         
         let vacancy = viewModel.selectedVacancy[indexPath.row]
-        viewModel.vacancyClosure = { [weak self] in
-            self?.handleButtonTapped(for: vacancy)
-        }
         
         cell.set(vacancy, isSelected: viewModel.isSelected(vacancy))
         
