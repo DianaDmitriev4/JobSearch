@@ -76,9 +76,8 @@ final class CodeViewController: UIViewController {
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupUI()
-        firstTextField.becomeFirstResponder()
-        navigationItem.setHidesBackButton(true, animated: false)
     }
     
     // MARK: - Initialization
@@ -95,13 +94,13 @@ final class CodeViewController: UIViewController {
     // MARK: - Private methods
     @objc private func checkCode() {
         if isAllTextFieldsFilled {
-            let newNavigationController = UINavigationController(rootViewController: TabBarController())
-            // TODO: ADD SCENE DELEGATE
-            UIApplication.shared.keyWindow?.rootViewController = newNavigationController
+            dismiss(animated: true)
         }
     }
     
     private func setupUI() {
+        firstTextField.becomeFirstResponder()
+        navigationItem.setHidesBackButton(true, animated: false)
         view.backgroundColor = .black
         view.addSubview(contentView)
         contentView.addSubview(stackView)
@@ -143,7 +142,6 @@ final class CodeViewController: UIViewController {
         textField.textAlignment = .center
         
         // TODO: TEXT ALIGNMENT = CENTER!!!!
-        // TODO: FIX DELETE CHARACTERS
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .left
         paragraphStyle.firstLineHeadIndent = 20

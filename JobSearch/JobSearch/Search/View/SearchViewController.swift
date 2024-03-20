@@ -62,6 +62,7 @@ final class SearchViewController: UIViewController {
         collectionViewFlowLayout.scrollDirection = .horizontal
         
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: collectionViewFlowLayout)
+        collectionView.showsHorizontalScrollIndicator = false
         
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -84,8 +85,7 @@ final class SearchViewController: UIViewController {
         let collectionViewFlowLayout = UICollectionViewFlowLayout()
         
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: collectionViewFlowLayout)
-        
-        //        collectionView.isScrollEnabled = false
+        collectionView.isScrollEnabled = false
         
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -164,16 +164,12 @@ final class SearchViewController: UIViewController {
     private func makeConstraint() {
         scrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-            make.height.equalTo(1000)
-            //            make.top.leading.trailing.equalToSuperview()
-            //            make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
         contentView.snp.makeConstraints { make in
-            //            make.top.leading.trailing.equalToSuperview()
-            //            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            let height = view.frame.height + 300
             make.edges.equalToSuperview()
-            make.height.equalTo(1000)
+            make.height.equalTo(height)
             make.width.equalTo(scrollView.snp.width)
         }
         
@@ -226,9 +222,8 @@ extension SearchViewController: UICollectionViewDataSource {
         if collectionView == quickFiltersCollectionView {
             return viewModel.quickFilters.count
         } else {
-            //            let firstThree = viewModel.vacancies.prefix(3)
-            //            return firstThree.count
-            return viewModel.vacancies.count
+            let firstThree = viewModel.vacancies.prefix(3)
+            return firstThree.count
         }
     }
     
@@ -240,17 +235,14 @@ extension SearchViewController: UICollectionViewDataSource {
             
             return quickFiltersCell
         } else {
-            guard let vacanciesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "VacanciesCell", 
+            guard let vacanciesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "VacanciesCell",
                                                                          for: indexPath) as? VacanciesCell else { return UICollectionViewCell() }
             vacanciesCell.viewModel = viewModel
+            vacanciesCell.delegate = self
             
             let vacancy = viewModel.vacancies[indexPath.row]
-            viewModel.vacancyClosure = { [weak self] in
-                self?.handleButtonTapped(for: vacancy)
-            }
             
             vacanciesCell.set(vacancy, isSelected: viewModel.isSelected(vacancy))
-            collectionView.reloadItems(at: [indexPath])
             
             return vacanciesCell
         }
@@ -273,7 +265,16 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
         if collectionView == quickFiltersCollectionView  {
             return CGSize(width: 132, height: collectionView.frame.height)
         } else {
-            return CGSize(width: collectionView.frame.width, height: 240) //TODO: - ВЫСЧИТАТЬ РАЗМЕР ЯЧЕЙКИ
+            return CGSize(width: collectionView.frame.width, height: 270) //TODO: - ВЫСЧИТАТЬ РАЗМЕР ЯЧЕЙКИ
         }
+    }
+}
+
+extension SearchViewController: VacancyDelegate {
+    func buttonTapped(_ cell: VacanciesCell) {
+        guard let indexPath = vacancyCollectionView.indexPath(for: cell) else { return }
+        let currentVacancy = viewModel.vacancies[indexPath.row]
+        viewModel.buttonTapped(vacancy: currentVacancy, isSelected: viewModel.isSelected(currentVacancy))
+        vacancyCollectionView.reloadItems(at: [indexPath])
     }
 }

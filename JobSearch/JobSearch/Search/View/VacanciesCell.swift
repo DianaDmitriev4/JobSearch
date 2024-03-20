@@ -23,6 +23,7 @@ final class VacanciesCell: UICollectionViewCell {
     
     // MARK: - Properties
     var viewModel: SearchViewModelProtocol?
+    weak var delegate: VacancyDelegate?
     
     // MARK: - GUI variables
     private lazy var container: UIView = {
@@ -142,26 +143,29 @@ final class VacanciesCell: UICollectionViewCell {
     
     // MARK: - Methods
     func set(_ dataSource: Vacancy, isSelected: Bool) {
-        guard let lookingNumber = dataSource.lookingNumber,
-              let town = dataSource.address.town,
+        if let lookingNumber = dataSource.lookingNumber {
+            lookingNumberLabel.text =  "Сейчас просматривает " + String(lookingNumber) + "человек"
+        }
+        
+        guard let town = dataSource.address.town,
               let company = dataSource.company else { return }
         
-        lookingNumberLabel.text =  "Сейчас просматривает " + String(lookingNumber) + "человек"
         jobTitleLabel.text = dataSource.title
         if let salary = dataSource.salary?.short {
             salaryLabel.text = salary
         }
+        
         cityAndCompanyLabel.text = "\(town)\n\(company)"
         experienceLabel.text = dataSource.experience?.previewText
         publishedDateLabel.text = "Опубликовано " + formatDate(from: dataSource.publishedDate ?? "")
         
-        let image = isSelected ? State.select.image : State.unselect.image
+        let image = !isSelected ? State.select.image : State.unselect.image
         selectedButton.setImage(image, for: .normal)
     }
     
     // MARK: - Private methods
     @objc private func buttonTapped() {
-        viewModel?.vacancyClosure?()
+        delegate?.buttonTapped(self)
     }
     
     private func formatDate(from dateString: String) -> String {
@@ -188,7 +192,6 @@ final class VacanciesCell: UICollectionViewCell {
                                       publishedDateLabel,
                                       applyJobButton])
         makeConstraint()
-        //        bindingViewModel()
     }
     
     private func makeConstraint() {
@@ -216,12 +219,7 @@ final class VacanciesCell: UICollectionViewCell {
         }
         
         cityAndCompanyLabel.snp.makeConstraints { make in
-            if let text = salaryLabel.text,
-               !text.isEmpty {
-                make.top.equalTo(salaryLabel.snp.bottom).offset(10)
-            } else {
-                make.top.equalTo(jobTitleLabel.snp.bottom).offset(10)
-            }
+            make.top.equalTo(salaryLabel.snp.bottom).offset(10)
             make.leading.equalToSuperview().inset(16)
         }
         
